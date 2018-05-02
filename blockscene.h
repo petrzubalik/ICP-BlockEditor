@@ -25,18 +25,18 @@ public:
     explicit BlockScene(QMenu *itemMenu, QObject *parent = 0);
 
 public slots:
-    void setMode(Mode mode);
-    void setItemType(BlockItem::BlockType type);
+    //void setMode(Mode mode);
+   // void setItemType(BlockItem::BlockType type);
 //    void editorLostFocus(DiagramTextItem *item);
 
 signals:
-    void itemInserted(BlockItem *item);
-    void itemSelected(QGraphicsItem *item);
+    //void itemInserted(BlockItem *item);
+    //void itemSelected(QGraphicsItem *item);
 
 protected:
-    void mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent) Q_DECL_OVERRIDE;
-    void mouseMoveEvent(QGraphicsSceneMouseEvent *mouseEvent) Q_DECL_OVERRIDE;
-    void mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent) Q_DECL_OVERRIDE;
+    //void mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent) Q_DECL_OVERRIDE;
+    //void mouseMoveEvent(QGraphicsSceneMouseEvent *mouseEvent) Q_DECL_OVERRIDE;
+    //void mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent) Q_DECL_OVERRIDE;
 
 private:
 //    bool isItemChange(int type);

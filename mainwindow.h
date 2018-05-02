@@ -2,7 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "blockitem.h"
+#include "blockscene.h"
 
 class DiagramScene;
 
@@ -31,31 +31,31 @@ public:
     ~MainWindow();
 
 private slots:
-    void buttonGroupClicked(int id);
-    void deleteItem();
-    void pointerGroupClicked(int id);
+    //void buttonGroupClicked(int id);
+    //void deleteItem();
+    //void pointerGroupClicked(int id);
 //    void bringToFront();
 //    void sendToBack();
-    void itemInserted(BlockItem *item);
-    void sceneScaleChanged(const QString &scale);
+    //void itemInserted(BlockItem *item);
+    //void sceneScaleChanged(const QString &scale);
 
 //    void itemColorChanged();
 //    void lineColorChanged();
 
 //    void lineButtonTriggered();
-    void itemSelected(QGraphicsItem *item);
+    //void itemSelected(QGraphicsItem *item);
 //    void about();
 
 private:
-    void createToolBox();
-    void createActions();
-    void createMenus();
-    void createToolbars();
+    //void createToolBox();
+    //void createActions();
+    //void createMenus();
+    //void createToolbars();
 //    QWidget *createBackgroundCellWidget(const QString &text,
 //                                        const QString &image);
 
-    QWidget *createCellWidget(const QString &text,
-                              BlockItem::BlockType type);
+    //QWidget *createCellWidget(const QString &text,
+    //                          BlockItem::BlockType type);
 
     DiagramScene *scene;
     QGraphicsView *view;

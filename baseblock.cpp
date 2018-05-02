@@ -4,3 +4,8 @@ BaseBlock::BaseBlock(BlockType blockType, QMenu *contextMenu, QGraphicsItem *par
 {
     ;
 }
+
+BaseBlock::~BaseBlock()
+{
+    ;
+}

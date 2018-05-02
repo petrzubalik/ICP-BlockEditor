@@ -2,7 +2,6 @@
 #define CONNECTION_H
 
 #include <QGraphicsLineItem>
-#include "blockitem.h"
 
 class BlockItem;
 
@@ -24,16 +23,17 @@ public:
       QGraphicsItem *parent = 0);
 
     int type() const Q_DECL_OVERRIDE { return Type; }
-    QRectF boundingRect() const Q_DECL_OVERRIDE;
+//    QRectF boundingRect() const Q_DECL_OVERRIDE;
 //    QPainterPath shape() const Q_DECL_OVERRIDE;
 
     BlockItem *startItem() const { return myStartItem; }
     BlockItem *endItem() const { return myEndItem; }
 
-    void updatePosition();
+    //void updatePosition();
+    ~Connection();
 
 protected:
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = 0) Q_DECL_OVERRIDE;
+    //void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = 0) Q_DECL_OVERRIDE;
 
 private:
     BlockItem *myStartItem;

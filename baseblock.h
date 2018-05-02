@@ -3,6 +3,7 @@
 
 #include <QGraphicsPixmapItem>
 #include <QList>
+#include "connection.h"
 
 QT_BEGIN_NAMESPACE
 class QPixmap;
@@ -18,7 +19,6 @@ class QWidget;
 class QPolygonF;
 QT_END_NAMESPACE
 
-class Connection;
 
 
 class BaseBlock : public QGraphicsItem //QGraphicsRectItem
@@ -35,10 +35,11 @@ public:
     void addConnection(Connection *connection);
     QPixmap image() const;
     int type() const Q_DECL_OVERRIDE { return Type;}
+    virtual ~BaseBlock();
 
 protected:
-    void contextMenuEvent(QGraphicsSceneContextMenuEvent *event) Q_DECL_OVERRIDE;
-    QVariant itemChange(GraphicsItemChange change, const QVariant &value) Q_DECL_OVERRIDE;
+   // void contextMenuEvent(QGraphicsSceneContextMenuEvent *event) Q_DECL_OVERRIDE;
+   // QVariant itemChange(GraphicsItemChange change, const QVariant &value) Q_DECL_OVERRIDE;
 
 private:
     BlockType myBlockType;
