@@ -21,13 +21,13 @@ QT_END_NAMESPACE
 
 
 
-class BaseBlock : public QGraphicsRectItem //QGraphicsRectItem
+class BaseBlock : public QGraphicsPixmapItem //QGraphicsRectItem
 {
 public:
     enum { Type = UserType + 15 };
     enum BlockType { Addition, Subtraction, Multiplication, Division, InputBlock, OutputBlock };
 
-    BaseBlock(BlockType blockType, QMenu *contextMenu, QGraphicsItem *parent = 0);
+    BaseBlock(BlockType blockType, QPixmap &pixmap, QMenu *contextMenu, QGraphicsItem *parent = 0);
 
     void removeConnection(Connection *connection);
     void removeConnection();

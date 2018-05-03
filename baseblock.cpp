@@ -1,7 +1,11 @@
 #include "baseblock.h"
 
-BaseBlock::BaseBlock(BlockType blockType, QMenu *contextMenu, QGraphicsItem *parent)
-    :QGraphicsRectItem(parent){}
+BaseBlock::BaseBlock(BlockType blocktype, QPixmap &pixmap, QMenu *contextMenu, QGraphicsItem *parent)
+    :QGraphicsPixmapItem(pixmap, parent)
+{
+    myBlockType = blocktype;
+    myContextMenu = contextMenu;
+}
 
 BaseBlock::~BaseBlock()
 {

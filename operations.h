@@ -6,7 +6,7 @@
 class Addition : public BlockItem
 {
 public:
-    Addition(QMenu *contextMenu, QGraphicsItem *parent = 0);
+    Addition(QPixmap pixmap, QMenu *contextMenu, QGraphicsItem *parent = 0);
     void operation();
     ~Addition();
 };

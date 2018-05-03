@@ -1,7 +1,7 @@
 #include "operations.h"
 
-Addition::Addition(QMenu *contextMenu, QGraphicsItem *parent)
-    : BlockItem(BaseBlock::Addition, contextMenu, parent) {}
+Addition::Addition(QPixmap pixmap, QMenu *contextMenu, QGraphicsItem *parent)
+    : BlockItem(BaseBlock::Addition, pixmap, contextMenu, parent) {}
 
 void Addition::operation()
 {

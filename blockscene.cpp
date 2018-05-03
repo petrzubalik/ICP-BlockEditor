@@ -29,18 +29,19 @@ void BlockScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
     if (mouseEvent->button() != Qt::LeftButton)
         return;
     BlockItem *block;
+//    QGraphicsPixmapItem *block = new QGraphicsPixmapItem(QPixmap(":block_div.jpg"));
     switch (myMode) {
         case InsertBlock:
             switch (myItemType)
             {
                 case BaseBlock::Addition:
-                    block = new Addition(myItemMenu);
+                    block = new Addition(QPixmap(":block_div.jpg"), myItemMenu);
                 break;
 //                case BaseBlock::Subtraction:
 //                    block = new Subtraction(myItemMenu);
 //                break;
                 default:
-                    block = new Addition(myItemMenu);
+                    block = new Addition(QPixmap(":block_div.jpg"), myItemMenu);
             }
             addItem(block);
             block->setPos(mouseEvent->scenePos());

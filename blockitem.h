@@ -8,7 +8,7 @@ class Port;
 class BlockItem : public BaseBlock
 {
 public:
-    BlockItem(BlockType blocktype, QMenu *contextMenu, QGraphicsItem *parent = 0);
+    BlockItem(BlockType blocktype, QPixmap &pixmap, QMenu *contextMenu, QGraphicsItem *parent = 0);
     bool propagated;
     virtual void operation() = 0;
     bool is_computable;
