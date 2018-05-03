@@ -31,7 +31,9 @@ SOURCES += \
     connection.cpp \
     blockitem.cpp \
     port.cpp \
-    operations.cpp
+    operations.cpp \
+    textblock.cpp \
+    inputblock.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -40,7 +42,9 @@ HEADERS += \
     connection.h \
     blockitem.h \
     port.h \
-    operations.h
+    operations.h \
+    textblock.h \
+    inputblock.h
 
 FORMS += \
         mainwindow.ui
