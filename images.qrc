@@ -1,5 +1,8 @@
 <RCC>
     <qresource prefix="/">
         <file>block_div.jpg</file>
+        <file>linepointer.png</file>
+        <file>pointer.png</file>
+        <file>delete.png</file>
     </qresource>
 </RCC>

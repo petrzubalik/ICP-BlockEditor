@@ -1,4 +1,7 @@
+#include <QGraphicsSceneMouseEvent>
+#include <QColor>
 #include "blockscene.h"
+#include "operations.h"
 
 BlockScene::BlockScene(QMenu *itemMenu, QObject *parent)
 {
@@ -15,3 +18,42 @@ void BlockScene::setMode(Mode mode)
 }
 
 
+void BlockScene::setItemType(BaseBlock::BlockType type)
+{
+    myItemType = type;
+}
+
+
+void BlockScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
+{
+    if (mouseEvent->button() != Qt::LeftButton)
+        return;
+    BlockItem *block;
+    switch (myMode) {
+        case InsertBlock:
+            switch (myItemType)
+            {
+                case BaseBlock::Addition:
+                    block = new Addition(myItemMenu);
+                break;
+//                case BaseBlock::Subtraction:
+//                    block = new Subtraction(myItemMenu);
+//                break;
+                default:
+                    block = new Addition(myItemMenu);
+            }
+            addItem(block);
+            block->setPos(mouseEvent->scenePos());
+            emit itemInserted(block);
+            break;
+        case InsertLine:
+            line = new QGraphicsLineItem(QLineF(mouseEvent->scenePos(),
+                                        mouseEvent->scenePos()));
+
+
+            addItem(line);
+            break;
+    default:
+        ;
+    }
+}

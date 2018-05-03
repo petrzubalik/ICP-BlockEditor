@@ -21,7 +21,7 @@ QT_END_NAMESPACE
 
 
 
-class BaseBlock : public QGraphicsItem //QGraphicsRectItem
+class BaseBlock : public QGraphicsRectItem //QGraphicsRectItem
 {
 public:
     enum { Type = UserType + 15 };

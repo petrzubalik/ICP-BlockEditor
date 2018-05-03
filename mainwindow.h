@@ -31,20 +31,12 @@ public:
     ~MainWindow();
 
 private slots:
-    //void buttonGroupClicked(int id);
-    //void deleteItem();
-    //void pointerGroupClicked(int id);
-//    void bringToFront();
-//    void sendToBack();
+    void buttonGroupClicked(int id);
+//    void deleteItem();
+    void pointerGroupClicked(int id);
+
     void itemInserted(BlockItem *item);
-    //void sceneScaleChanged(const QString &scale);
-
-//    void itemColorChanged();
-//    void lineColorChanged();
-
-//    void lineButtonTriggered();
-    //void itemSelected(QGraphicsItem *item);
-//    void about();
+    void sceneScaleChanged(const QString &scale);
 
 private:
     void createToolBox();

@@ -47,7 +47,7 @@ void MainWindow::itemInserted(BlockItem *item)
 void MainWindow::createToolBox()
 {
     buttonGroup = new QButtonGroup(this);
-    buttonGroup->setExclusive(false);
+    buttonGroup->setExclusive(true); // false ??
     connect(buttonGroup, SIGNAL(buttonClicked(int)),
             this, SLOT(buttonGroupClicked(int)));
 
@@ -69,13 +69,13 @@ void MainWindow::createToolBox()
     toolBox = new QToolBox;
     toolBox->setSizePolicy(QSizePolicy(QSizePolicy::Maximum, QSizePolicy::Ignored));
     toolBox->setMinimumWidth(itemWidget->sizeHint().width());
-    toolBox->addItem(itemWidget, tr("Basic Flowchart Shapes"));
+    toolBox->addItem(itemWidget, tr("Block items"));
 
 }
 
 void MainWindow::createActions()
 {
-    deleteAction = new QAction(QIcon(":/images/delete.png"), tr("&Delete"), this);
+    deleteAction = new QAction(QIcon(":delete.png"), tr("&Delete"), this);
     deleteAction->setShortcut(tr("Delete"));
     deleteAction->setStatusTip(tr("Delete item from editor"));
     connect(deleteAction, SIGNAL(triggered()), this, SLOT(deleteItem()));
@@ -104,10 +104,10 @@ void MainWindow::createToolbars()
     QToolButton *pointerButton = new QToolButton;
     pointerButton->setCheckable(true);
     pointerButton->setChecked(true);
-    pointerButton->setIcon(QIcon(":/images/pointer.png"));
+    pointerButton->setIcon(QIcon(":pointer.png"));
     QToolButton *linePointerButton = new QToolButton;
     linePointerButton->setCheckable(true);
-    linePointerButton->setIcon(QIcon(":/images/linepointer.png"));
+    linePointerButton->setIcon(QIcon(":linepointer.png"));
 
     pointerTypeGroup = new QButtonGroup(this);
     pointerTypeGroup->addButton(pointerButton, int(BlockScene::MoveBlock));
@@ -151,6 +151,28 @@ QWidget *MainWindow::createCellWidget(const QString &text, BaseBlock::BlockType 
     return widget;
 }
 
+void MainWindow::buttonGroupClicked(int id)
+{
+    QList<QAbstractButton *> buttons = buttonGroup->buttons();
+    foreach (QAbstractButton *button, buttons) {
+        if (buttonGroup->button(id) != button)
+            button->setChecked(false);
+    }
+    scene->setItemType(BaseBlock::BlockType(id));
+    scene->setMode(BlockScene::InsertBlock);
+}
 
+void MainWindow::pointerGroupClicked(int)
+{
+    scene->setMode(BlockScene::Mode(pointerTypeGroup->checkedId()));
+}
 
+void MainWindow::sceneScaleChanged(const QString &scale)
+{
+    double newScale = scale.left(scale.indexOf(tr("%"))).toDouble() / 100.0;
+    QMatrix oldMatrix = view->matrix();
+    view->resetMatrix();
+    view->translate(oldMatrix.dx(), oldMatrix.dy());
+    view->scale(newScale, newScale);
+}
 
