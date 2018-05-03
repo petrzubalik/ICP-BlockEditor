@@ -10,7 +10,7 @@ class BlockItem : public BaseBlock
 public:
     BlockItem(BlockType blocktype, QMenu *contextMenu, QGraphicsItem *parent = 0);
     bool propagated;
-    virtual void operation();
+    virtual void operation() = 0;
     bool is_computable;
     virtual ~BlockItem();
 protected:

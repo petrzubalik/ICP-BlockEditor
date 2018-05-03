@@ -13,3 +13,5 @@ void BlockScene::setMode(Mode mode)
 {
     myMode = mode;
 }
+
+

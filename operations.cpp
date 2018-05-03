@@ -7,3 +7,8 @@ void Addition::operation()
 {
     ;
 }
+
+Addition::~Addition()
+{
+    ;
+}

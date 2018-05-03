@@ -4,3 +4,8 @@ Port::Port()
 {
 
 }
+
+Port::~Port()
+{
+    ;
+}
