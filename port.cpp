@@ -1,9 +1,9 @@
 #include "port.h"
 
-Port::Port()
-{
+QPixmap Port::pixmap = QPixmap(":port.png");
 
-}
+Port::Port(QGraphicsItem *parent)
+    : QGraphicsPixmapItem(pixmap, parent){}
 
 Port::~Port()
 {

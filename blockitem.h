@@ -13,7 +13,6 @@ public:
     virtual void operation() = 0;
     bool is_computable;
     virtual ~BlockItem();
-protected:
     std::vector<Port*> in_ports;
     Port *out_port;
 };

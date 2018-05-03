@@ -4,5 +4,6 @@
         <file>linepointer.png</file>
         <file>pointer.png</file>
         <file>delete.png</file>
+        <file>port.png</file>
     </qresource>
 </RCC>

@@ -3,13 +3,14 @@
 
 #include "connection.h"
 
-class Port
+class Port : public QGraphicsPixmapItem
 {
 protected:
+    static QPixmap pixmap;
     double value;
     bool used;
 public:
-    Port();
+    Port(QGraphicsItem *parent = 0);
     ~Port();
     bool has_value;
     double get_value();
