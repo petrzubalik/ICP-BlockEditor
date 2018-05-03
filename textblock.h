@@ -1,5 +1,5 @@
-#ifndef INPUTBLOCK_H
-#define INPUTBLOCK_H
+#ifndef TEXTBLOCK_H
+#define TEXTBLOCK_H
 
 #include <QGraphicsTextItem>
 #include <QPen>
