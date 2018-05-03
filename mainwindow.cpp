@@ -56,7 +56,7 @@ void MainWindow::createToolBox()
     layout->addWidget(createCellWidget(tr("Subtraction"), BaseBlock::Addition),0, 1);
     layout->addWidget(createCellWidget(tr("Multiplication"), BaseBlock::Addition), 1, 0);
     layout->addWidget(createCellWidget(tr("Division"), BaseBlock::Addition), 1, 1);
-    layout->addWidget(createCellWidget(tr("Input"), BaseBlock::Addition), 2, 0);
+    layout->addWidget(createCellWidget(tr("Input"), BaseBlock::InputBlock), 2, 0);
     layout->addWidget(createCellWidget(tr("Output"), BaseBlock::Addition), 2, 1);
 
 
@@ -131,7 +131,19 @@ void MainWindow::createToolbars()
 
 QWidget *MainWindow::createCellWidget(const QString &text, BaseBlock::BlockType type)
 {
-    QPixmap *pixmap = new QPixmap(":block_div.jpg");
+    QPixmap *pixmap;
+    switch (type)
+    {
+        case BaseBlock::Addition:
+            pixmap = new QPixmap(":block_div.jpg");
+            break;
+        case BaseBlock::InputBlock:
+            pixmap = new QPixmap(":input.jpg");
+            break;
+        default:
+            pixmap = new QPixmap(":block_div.jpg");
+            break;
+    }
 
     QIcon icon(*pixmap);
 

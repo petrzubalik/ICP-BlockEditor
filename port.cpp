@@ -5,9 +5,46 @@ Port::Port(PortType type, QGraphicsItem *parent)
     : QGraphicsPixmapItem(QPixmap(":port.png"), parent)
 {
     myType = type;
+    setFlag(QGraphicsItem::ItemIsSelectable, true);
+    setFlag(QGraphicsItem::ItemSendsGeometryChanges, true);
 }
 
 Port::~Port()
 {
     ;
+}
+
+
+InputPort::InputPort(QGraphicsItem *parent)
+    : Port(Port::Input, parent)
+{
+    connection = 0;
+    used = false;
+    has_value = false;
+
+}
+
+OutputPort::OutputPort(QGraphicsItem *parent)
+    : Port(Port::Output, parent)
+{
+    used = false;
+    has_value = false;
+}
+
+Connection* OutputPort::connect(InputPort *port)
+{
+    used = true;
+    Connection *new_connection = new Connection(this, port);
+    port->connection = new_connection;
+    port->used = true;
+    connections.push_back(new_connection);
+    return new_connection;
+}
+
+OutputPort::~OutputPort()
+{
+    for (auto connection : connections)
+    {
+        delete connection;
+    }
 }

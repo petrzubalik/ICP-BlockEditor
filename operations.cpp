@@ -4,15 +4,18 @@
 Addition::Addition(QPixmap pixmap, QMenu *contextMenu, QGraphicsItem *parent)
     : BlockItem(BaseBlock::Addition, pixmap, contextMenu, parent)
 {
-    Port *p1 = new Port(Port::Input, this);
-    p1->setPos(0, 20);
+    InputPort *p1 = new InputPort(this);
+    p1->setPos(-5, 20);
+    p1->setZValue(1000);
     in_ports.push_back(p1);
-    Port *p2 = new Port(Port::Input, this);
-    p2->setPos(0, 70);
+    InputPort *p2 = new InputPort(this);
+    p2->setPos(-5, 70);
+    p2->setZValue(1000);
     in_ports.push_back(p2);
 
-    Port *p3 = new Port(Port::Output, this);
-    p3->setPos(135, 45);
+    OutputPort *p3 = new OutputPort(this);
+    p3->setPos(140, 45);
+    p3->setZValue(1000);
     out_port = p3;
 
 }

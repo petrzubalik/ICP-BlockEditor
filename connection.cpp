@@ -2,10 +2,11 @@
 
 #include <QPen>
 #include <QPainter>
+#include <iostream>
 #include "port.h"
 
 
-Connection::Connection(Port *p1, Port *p2,
+Connection::Connection(OutputPort *p1, InputPort *p2,
                        QGraphicsItem *parent)
     : QGraphicsLineItem(parent)
 {
@@ -44,14 +45,22 @@ void Connection::paint(QPainter *painter, const QStyleOptionGraphicsItem *,
 
     QPen myPen = pen();
     myPen.setColor(myColor);
-    qreal arrowSize = 20;
     painter->setPen(myPen);
     painter->setBrush(myColor);
 
-    QLineF centerLine(source_port->pos(), dest_port->pos());
-    setLine(centerLine);
+    QPointF p1 = source_port->scenePos();
+    QPointF p2 = dest_port->scenePos();
 
+    p1.setX(p1.rx() + 15);
+    p1.setY(p1.ry() + 15);
+
+    p2.setX(p2.rx() + 15);
+    p2.setY(p2.ry() + 15);
+
+
+    setLine(QLineF(p1, p2));
     painter->drawLine(line());
+
     if (isSelected()) {
         painter->setPen(QPen(myColor, 1, Qt::DashLine));
         QLineF myLine = line();

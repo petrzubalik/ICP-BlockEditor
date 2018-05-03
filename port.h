@@ -12,28 +12,46 @@ class Port : public QGraphicsPixmapItem
 public:
     enum { Type = UserType + 42 };
     enum PortType { Input, Output};
+    bool has_value;
+    bool used;
 
     Port(PortType type, QGraphicsItem *parent = 0);
     ~Port();
-
-    bool has_value;
 
     double get_value();
     void set_value(double val);
 
     PortType portType() {return myType;}
-
     int type() const Q_DECL_OVERRIDE { return Type;}
 
-    Connection *connection; // getter
-//    void connect(Port *dest);
-//    void disconnect();
+//    void disconnect(Connection *connection) = 0;
 
 protected:
     double value;
-    bool used;
     PortType myType;
+};
 
+
+
+class InputPort : public Port
+{
+public:
+    InputPort(QGraphicsItem *parent = 0);
+    ~InputPort();
+    Connection *connection;
+//    void disconnect(Connection *connection);
+};
+
+
+class OutputPort : public Port
+{
+public:
+    OutputPort(QGraphicsItem *parent = 0);
+    ~OutputPort();
+    std::vector<Connection*> connections;
+    Connection* connect(InputPort *dest);
+//    void disconnect(Connection *connection);
+//    void disconnect_all();
 };
 
 #endif // PORT_H

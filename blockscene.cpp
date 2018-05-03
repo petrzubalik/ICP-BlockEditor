@@ -6,6 +6,7 @@
 #include "port.h"
 
 BlockScene::BlockScene(QMenu *itemMenu, QObject *parent)
+    : QGraphicsScene(parent)
 {
     myItemMenu = itemMenu;
     myMode = MoveBlock;
@@ -39,10 +40,10 @@ void BlockScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
             {
                 case BaseBlock::Addition:
                     img = ":block_div.jpg";
-                break;
-//                case BaseBlock::Subtraction:
-//                    block = new Subtraction(myItemMenu);
-//                break;
+                    break;
+                case BaseBlock::InputBlock:
+                    img = ":input.jpg";
+                    break;
                 default:
                     img = ":block_div.jpg";
             }
@@ -93,19 +94,21 @@ void BlockScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent)
             endItems.first()->type() == Port::Type &&
             startItems.first() != endItems.first())
         {
-            Port *source = qgraphicsitem_cast<Port *>(startItems.first());
-            Port *dest = qgraphicsitem_cast<Port *>(endItems.first());
+            OutputPort *source = qgraphicsitem_cast<OutputPort *>(startItems.first());
+            InputPort *dest = qgraphicsitem_cast<InputPort *>(endItems.first());
 
             if (source->portType() == Port::Output &&
                 dest->portType() == Port::Input)
             {
-                Connection *connection = new Connection(source, dest);
+                if (!dest->used)
+                {
+                    Connection *connection;
+                    connection = source->connect(dest);
+                    connection->setZValue(-1000);
+                    addItem(connection);
+                    connection->updatePosition();
+                }
 
-                source->connection = connection;
-                dest->connection = connection;
-                connection->setZValue(1000.0);
-                addItem(connection);
-                connection->updatePosition();
             }
         }
     }

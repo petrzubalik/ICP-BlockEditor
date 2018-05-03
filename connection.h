@@ -4,6 +4,8 @@
 #include <QGraphicsLineItem>
 
 class Port;
+class InputPort;
+class OutputPort;
 
 
 class BlockItem;
@@ -22,14 +24,14 @@ class Connection : public QGraphicsLineItem
 public:
     enum { Type = UserType + 4 };
 
-    Connection(Port *source_port, Port *dest_port,
+    Connection(OutputPort *source_port, InputPort *dest_port,
       QGraphicsItem *parent = 0);
 
     int type() const Q_DECL_OVERRIDE { return Type; }
     QRectF boundingRect() const Q_DECL_OVERRIDE;
 
-    Port *get_source_port() const { return source_port; }
-    Port *get_dest_port() const { return dest_port; }
+    OutputPort *get_source_port() const { return source_port; }
+    InputPort *get_dest_port() const { return dest_port; }
 
     void updatePosition();
     ~Connection();
@@ -39,8 +41,8 @@ protected:
 
 private:
     QColor myColor;
-    Port *source_port;
-    Port *dest_port;
+    OutputPort *source_port;
+    InputPort *dest_port;
 };
 
 #endif // CONNECTION_H

@@ -4,6 +4,8 @@
 #include "baseblock.h"
 
 class Port;
+class InputPort;
+class OutputPort;
 
 class BlockItem : public BaseBlock
 {
@@ -13,8 +15,8 @@ public:
     virtual void operation() = 0;
     bool is_computable;
     virtual ~BlockItem();
-    std::vector<Port*> in_ports;
-    Port *out_port;
+    std::vector<InputPort*> in_ports;
+    OutputPort *out_port;
 };
 
 #endif // BLOCKITEM_H
