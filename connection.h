@@ -3,6 +3,9 @@
 
 #include <QGraphicsLineItem>
 
+class Port;
+
+
 class BlockItem;
 
 QT_BEGIN_NAMESPACE
@@ -19,25 +22,25 @@ class Connection : public QGraphicsLineItem
 public:
     enum { Type = UserType + 4 };
 
-    Connection(BlockItem *startItem, BlockItem *endItem,
+    Connection(Port *source_port, Port *dest_port,
       QGraphicsItem *parent = 0);
 
     int type() const Q_DECL_OVERRIDE { return Type; }
-//    QRectF boundingRect() const Q_DECL_OVERRIDE;
-//    QPainterPath shape() const Q_DECL_OVERRIDE;
+    QRectF boundingRect() const Q_DECL_OVERRIDE;
 
-    BlockItem *startItem() const { return myStartItem; }
-    BlockItem *endItem() const { return myEndItem; }
+    Port *get_source_port() const { return source_port; }
+    Port *get_dest_port() const { return dest_port; }
 
-    //void updatePosition();
+    void updatePosition();
     ~Connection();
 
 protected:
-    //void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = 0) Q_DECL_OVERRIDE;
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = 0) Q_DECL_OVERRIDE;
 
 private:
-    BlockItem *myStartItem;
-    BlockItem *myEndItem;
+    QColor myColor;
+    Port *source_port;
+    Port *dest_port;
 };
 
 #endif // CONNECTION_H

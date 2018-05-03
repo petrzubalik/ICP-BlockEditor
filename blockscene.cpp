@@ -31,31 +31,23 @@ void BlockScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
     if (mouseEvent->button() != Qt::LeftButton)
         return;
     BlockItem *block;
-    BlockItem *port;
-    BlockItem *port2;
-    QPixmap *pixmap = new QPixmap(":port.png");
+    QString img;
 
-//    QGraphicsPixmapItem *block = new QGraphicsPixmapItem(QPixmap(":block_div.jpg"));
     switch (myMode) {
         case InsertBlock:
             switch (myItemType)
             {
                 case BaseBlock::Addition:
-                    block = new Addition(QPixmap(":block_div.jpg"), myItemMenu);
+                    img = ":block_div.jpg";
                 break;
 //                case BaseBlock::Subtraction:
 //                    block = new Subtraction(myItemMenu);
 //                break;
                 default:
-                    block = new Addition(QPixmap(":block_div.jpg"), myItemMenu);
+                    img = ":block_div.jpg";
             }
 
-            port = new Addition(*pixmap, myItemMenu, block);
-            port2 = new Addition(*pixmap, myItemMenu, block);
-            port->setPos(0, 20);
-            port2->setPos(0, 70);
-            port->setZValue(1000);
-//            addItem(port);
+            block = new Addition(img, myItemMenu);
             addItem(block);
             block->setPos(mouseEvent->scenePos());
             emit itemInserted(block);
@@ -63,11 +55,64 @@ void BlockScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
         case InsertLine:
             line = new QGraphicsLineItem(QLineF(mouseEvent->scenePos(),
                                         mouseEvent->scenePos()));
-
-
+            line->setPen(QPen(QColor(244, 147, 56), 2));
             addItem(line);
             break;
     default:
         ;
     }
+    QGraphicsScene::mousePressEvent(mouseEvent);
+
 }
+
+void BlockScene::mouseMoveEvent(QGraphicsSceneMouseEvent *mouseEvent)
+{
+    if (myMode == InsertLine && line != 0) {
+        QLineF newLine(line->line().p1(), mouseEvent->scenePos());
+        line->setLine(newLine);
+    } else if (myMode == MoveBlock) {
+        QGraphicsScene::mouseMoveEvent(mouseEvent);
+    }
+}
+
+void BlockScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent)
+{
+    if (line != 0 && myMode == InsertLine) {
+        QList<QGraphicsItem *> startItems = items(line->line().p1());
+        if (startItems.count() && startItems.first() == line)
+            startItems.removeFirst();
+        QList<QGraphicsItem *> endItems = items(line->line().p2());
+        if (endItems.count() && endItems.first() == line)
+            endItems.removeFirst();
+
+        removeItem(line);
+        delete line;
+
+        if (startItems.count() > 0 && endItems.count() > 0 &&
+            startItems.first()->type() == Port::Type &&
+            endItems.first()->type() == Port::Type &&
+            startItems.first() != endItems.first())
+        {
+            Port *source = qgraphicsitem_cast<Port *>(startItems.first());
+            Port *dest = qgraphicsitem_cast<Port *>(endItems.first());
+
+            if (source->portType() == Port::Output &&
+                dest->portType() == Port::Input)
+            {
+                Connection *connection = new Connection(source, dest);
+
+                source->connection = connection;
+                dest->connection = connection;
+                connection->setZValue(1000.0);
+                addItem(connection);
+                connection->updatePosition();
+            }
+        }
+    }
+    line = 0;
+    QGraphicsScene::mouseReleaseEvent(mouseEvent);
+}
+
+
+
+
