@@ -25,7 +25,7 @@ public:
     explicit BlockScene(QMenu *itemMenu, QObject *parent = 0);
 
 public slots:
-    //void setMode(Mode mode);
+    void setMode(Mode mode);
    // void setItemType(BlockItem::BlockType type);
 //    void editorLostFocus(DiagramTextItem *item);
 

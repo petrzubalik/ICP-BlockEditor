@@ -36,7 +36,7 @@ private slots:
     //void pointerGroupClicked(int id);
 //    void bringToFront();
 //    void sendToBack();
-    //void itemInserted(BlockItem *item);
+    void itemInserted(BlockItem *item);
     //void sceneScaleChanged(const QString &scale);
 
 //    void itemColorChanged();
@@ -47,17 +47,16 @@ private slots:
 //    void about();
 
 private:
-    //void createToolBox();
-    //void createActions();
-    //void createMenus();
-    //void createToolbars();
-//    QWidget *createBackgroundCellWidget(const QString &text,
-//                                        const QString &image);
+    void createToolBox();
+    void createActions();
+    void createMenus();
+    void createToolbars();
 
-    //QWidget *createCellWidget(const QString &text,
-    //                          BlockItem::BlockType type);
 
-    DiagramScene *scene;
+    QWidget *createCellWidget(const QString &text,
+                              BlockItem::BlockType type);
+
+    BlockScene *scene;
     QGraphicsView *view;
 
     QAction *exitAction;

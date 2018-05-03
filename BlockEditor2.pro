@@ -30,7 +30,8 @@ SOURCES += \
     baseblock.cpp \
     connection.cpp \
     blockitem.cpp \
-    port.cpp
+    port.cpp \
+    operations.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -38,7 +39,11 @@ HEADERS += \
     baseblock.h \
     connection.h \
     blockitem.h \
-    port.h
+    port.h \
+    operations.h
 
 FORMS += \
         mainwindow.ui
+
+RESOURCES += \
+    images.qrc
