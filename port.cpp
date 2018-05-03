@@ -31,6 +31,11 @@ OutputPort::OutputPort(QGraphicsItem *parent)
     has_value = false;
 }
 
+InputPort::~InputPort()
+{
+    ;
+}
+
 Connection* OutputPort::connect(InputPort *port)
 {
     used = true;
