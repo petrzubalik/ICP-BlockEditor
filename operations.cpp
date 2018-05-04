@@ -36,6 +36,7 @@ void Addition::operation()
         dest_port->set_value(result);
         dest_port->has_value = true;
     }
+    propagated = true;
 }
 
 Addition::~Addition()
@@ -81,6 +82,7 @@ void Subtraction::operation()
         dest_port->set_value(result);
         dest_port->has_value = true;
     }
+    propagated = true;
 }
 
 Subtraction::~Subtraction()
@@ -121,6 +123,7 @@ void Multiplication::operation()
         dest_port->set_value(result);
         dest_port->has_value = true;
     }
+    propagated = true;
 }
 
 Multiplication::~Multiplication()
@@ -165,6 +168,7 @@ void Division::operation()
         dest_port->set_value(result);
         dest_port->has_value = true;
     }
+    propagated = true;
 }
 
 

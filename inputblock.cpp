@@ -12,7 +12,6 @@ InputBlock::InputBlock(QMenu *contextMenu, QGraphicsItem *parent)
     out_port->setPos(168, 25);
 
     propagated = false;
-    is_computable = true;
 
     setFlag(QGraphicsItem::ItemIsMovable, true);
     setFlag(QGraphicsItem::ItemIsSelectable, true);

@@ -3,6 +3,9 @@
 
 #include <QMainWindow>
 #include "blockscene.h"
+#include "blockitem.h"
+#include "inputblock.h"
+#include "outputblock.h"
 
 class DiagramScene;
 
@@ -30,10 +33,15 @@ public:
     MainWindow();
     ~MainWindow();
 
+    std::vector<BaseBlock*> operation_blocks;
+    std::vector<BaseBlock*> input_blocks;
+    std::vector<BaseBlock*> output_blocks;
+
 private slots:
     void buttonGroupClicked(int id);
 //    void deleteItem();
     void pointerGroupClicked(int id);
+    void compute(int);
 
     void itemInserted(BaseBlock *item);
     void sceneScaleChanged(const QString &scale);

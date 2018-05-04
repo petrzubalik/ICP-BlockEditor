@@ -5,6 +5,8 @@
 #include "blockitem.h"
 
 
+class MainWindow;
+
 QT_BEGIN_NAMESPACE
 class QGraphicsSceneMouseEvent;
 class QMenu;
@@ -22,7 +24,7 @@ class BlockScene : public QGraphicsScene
 public:
     enum Mode { InsertBlock, InsertLine, MoveBlock };
 
-    explicit BlockScene(QMenu *itemMenu, QObject *parent = 0);
+    explicit BlockScene(MainWindow *mWindow, QMenu *itemMenu, QObject *parent = 0);
 
 public slots:
     void setMode(Mode mode);
@@ -45,6 +47,7 @@ private:
     bool leftButtonDown;
     QPointF startPoint;
     QGraphicsLineItem *line;
+    MainWindow *mainWindow;
 
 };
 

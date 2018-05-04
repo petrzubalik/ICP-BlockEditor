@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include <iostream>
 
 #include <QtWidgets>
 
@@ -12,7 +13,7 @@ MainWindow::MainWindow()
     createToolBox();
     createMenus();
 
-    scene = new BlockScene(itemMenu, this);
+    scene = new BlockScene(this, itemMenu, this);
     scene->setSceneRect(QRectF(0, 0, 5000, 5000));
     connect(scene, SIGNAL(itemInserted(BaseBlock*)),
             this, SLOT(itemInserted(BaseBlock*)));
@@ -103,6 +104,9 @@ void MainWindow::createToolbars()
     QToolButton *playButton = new QToolButton;
     playButton->setIcon(QIcon(":play.png"));
     editToolBar->addWidget(playButton);
+
+    MainWindow::connect(playButton, SIGNAL(buttonClicked(int)),
+            this, SLOT(compute(int)));
 
     QToolButton *debugButton = new QToolButton;
     debugButton->setIcon(QIcon(":debug.png"));
@@ -206,4 +210,12 @@ void MainWindow::sceneScaleChanged(const QString &scale)
     view->translate(oldMatrix.dx(), oldMatrix.dy());
     view->scale(newScale, newScale);
 }
+
+void MainWindow::compute(int)
+{
+    std::cout << "Run button clicked!" << std::endl;
+}
+
+
+
 

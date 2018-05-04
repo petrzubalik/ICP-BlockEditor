@@ -6,14 +6,17 @@
 #include "inputblock.h"
 #include "outputblock.h"
 #include "port.h"
+#include "mainwindow.h"
 
-BlockScene::BlockScene(QMenu *itemMenu, QObject *parent)
+BlockScene::BlockScene(MainWindow *mWindow, QMenu *itemMenu, QObject *parent)
     : QGraphicsScene(parent)
 {
+
     myItemMenu = itemMenu;
     myMode = MoveBlock;
     myItemType = BaseBlock::InputBlock;
     line = 0;
+    mainWindow = mWindow;
 }
 
 
@@ -41,21 +44,27 @@ void BlockScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
             {
                 case BaseBlock::Addition:
                     block = new Addition(myItemMenu);
+                    mainWindow->operation_blocks.push_back(block);
                     break;
                 case BaseBlock::InputBlock:
                     block = new InputBlock(myItemMenu);
+                    mainWindow->input_blocks.push_back(block);
                     break;
                 case BaseBlock::Subtraction:
                     block = new Subtraction(myItemMenu);
+                    mainWindow->operation_blocks.push_back(block);
                     break;
                 case BaseBlock::Multiplication:
                     block = new Multiplication(myItemMenu);
+                    mainWindow->operation_blocks.push_back(block);
                     break;
                 case BaseBlock::Division:
                     block = new Division(myItemMenu);
+                    mainWindow->operation_blocks.push_back(block);
                     break;
                 case BaseBlock::OutputBlock:
                     block = new OutputBlock(myItemMenu);
+                    mainWindow->output_blocks.push_back(block);
                     break;
                 default:
                     ;
@@ -75,6 +84,10 @@ void BlockScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
         ;
     }
     QGraphicsScene::mousePressEvent(mouseEvent);
+//    [DEBUG]
+//    std::cout << "operation blocks = " << mainWindow->operation_blocks.size() << std::endl;
+//    std::cout << "input blocks = " << mainWindow->input_blocks.size() << std::endl;
+//    std::cout << "out blocks = " << mainWindow->output_blocks.size() << std::endl << std::endl;
 
 }
 
