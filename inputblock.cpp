@@ -9,12 +9,17 @@ InputBlock::InputBlock(QMenu *contextMenu, QGraphicsItem *parent)
     textBlock->setTextWidth(100.0);
     textBlock->setPos(40, 25);
     OutputPort *p = new OutputPort(this);
-    p->setPos(180, 30);
+    p->setPos(170, 25);
+
+    propagated = false;
+    is_computable = true;
 
     setFlag(QGraphicsItem::ItemIsMovable, true);
     setFlag(QGraphicsItem::ItemIsSelectable, true);
     setFlag(QGraphicsItem::ItemSendsGeometryChanges, true);
 }
+
+
 
 
 

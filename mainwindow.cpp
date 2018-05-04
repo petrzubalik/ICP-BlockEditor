@@ -14,8 +14,8 @@ MainWindow::MainWindow()
 
     scene = new BlockScene(itemMenu, this);
     scene->setSceneRect(QRectF(0, 0, 5000, 5000));
-    connect(scene, SIGNAL(itemInserted(BlockItem*)),
-            this, SLOT(itemInserted(BlockItem*)));
+    connect(scene, SIGNAL(itemInserted(BaseBlock*)),
+            this, SLOT(itemInserted(BaseBlock*)));
 
     createToolbars();
 
