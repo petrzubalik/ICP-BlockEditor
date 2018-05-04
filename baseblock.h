@@ -27,13 +27,13 @@ public:
     enum { Type = UserType + 15 };
     enum BlockType { Addition, Subtraction, Multiplication, Division, InputBlock, OutputBlock };
 
-    BaseBlock(BlockType blockType, QPixmap &pixmap, QMenu *contextMenu, QGraphicsItem *parent = 0);
+    BaseBlock(BlockType blockType, QString img, QMenu *contextMenu, QGraphicsItem *parent = 0);
 
-    void removeConnection(Connection *connection);
-    void removeConnection();
+//    void removeConnection(Connection *connection);
+//    void removeConnection();
     BlockType blockType() const { return myBlockType; }
-    void addConnection(Connection *connection);
-    QPixmap image() const;
+//    void addConnection(Connection *connection);
+//    QPixmap image() const;
     int type() const Q_DECL_OVERRIDE { return Type;}
     virtual ~BaseBlock();
 

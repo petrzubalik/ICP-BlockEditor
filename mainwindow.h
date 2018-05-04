@@ -35,7 +35,7 @@ private slots:
 //    void deleteItem();
     void pointerGroupClicked(int id);
 
-    void itemInserted(BlockItem *item);
+    void itemInserted(BaseBlock *item);
     void sceneScaleChanged(const QString &scale);
 
 private:

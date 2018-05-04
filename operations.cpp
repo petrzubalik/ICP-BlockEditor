@@ -1,8 +1,8 @@
 #include "operations.h"
 #include "port.h"
 
-Addition::Addition(QPixmap pixmap, QMenu *contextMenu, QGraphicsItem *parent)
-    : BlockItem(BaseBlock::Addition, pixmap, contextMenu, parent)
+Addition::Addition(QMenu *contextMenu, QGraphicsItem *parent)
+    : BlockItem(BaseBlock::Addition, ":block_div.jpg", contextMenu, parent)
 {
     InputPort *p1 = new InputPort(this);
     p1->setPos(-5, 20);

@@ -37,7 +37,7 @@ MainWindow::~MainWindow()
     ;
 }
 
-void MainWindow::itemInserted(BlockItem *item)
+void MainWindow::itemInserted(BaseBlock *item)
 {
     pointerTypeGroup->button(int(BlockScene::MoveBlock))->setChecked(true);
     scene->setMode(BlockScene::Mode(pointerTypeGroup->checkedId()));

@@ -3,6 +3,7 @@
 #include <iostream>
 #include "blockscene.h"
 #include "operations.h"
+#include "inputblock.h"
 #include "port.h"
 
 BlockScene::BlockScene(QMenu *itemMenu, QObject *parent)
@@ -31,24 +32,22 @@ void BlockScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
 {
     if (mouseEvent->button() != Qt::LeftButton)
         return;
-    BlockItem *block;
-    QString img;
+    BaseBlock *block;
 
     switch (myMode) {
         case InsertBlock:
             switch (myItemType)
             {
                 case BaseBlock::Addition:
-                    img = ":block_div.jpg";
+                    block = new Addition(myItemMenu);
                     break;
                 case BaseBlock::InputBlock:
-                    img = ":input.jpg";
+                    block = new InputBlock(myItemMenu);
                     break;
                 default:
-                    img = ":block_div.jpg";
+                    block = new Addition(myItemMenu);
             }
 
-            block = new Addition(img, myItemMenu);
             addItem(block);
             block->setPos(mouseEvent->scenePos());
             emit itemInserted(block);

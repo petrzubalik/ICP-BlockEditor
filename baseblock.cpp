@@ -5,8 +5,8 @@
 
 #include "baseblock.h"
 
-BaseBlock::BaseBlock(BlockType blocktype, QPixmap &pixmap, QMenu *contextMenu, QGraphicsItem *parent)
-    :QGraphicsPixmapItem(pixmap, parent)
+BaseBlock::BaseBlock(BlockType blocktype, QString img, QMenu *contextMenu, QGraphicsItem *parent)
+    :QGraphicsPixmapItem(QPixmap(img), parent)
 {
     myBlockType = blocktype;
     myContextMenu = contextMenu;

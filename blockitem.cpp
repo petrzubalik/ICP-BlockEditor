@@ -1,7 +1,7 @@
 #include "blockitem.h"
 
-BlockItem::BlockItem(BlockType blocktype, QPixmap &pixmap, QMenu *contextMenu, QGraphicsItem *parent)
-    :BaseBlock(blocktype, pixmap, contextMenu, parent)
+BlockItem::BlockItem(BlockType blocktype, QString img, QMenu *contextMenu, QGraphicsItem *parent)
+    :BaseBlock(blocktype, img, contextMenu, parent)
 {
     setFlag(QGraphicsItem::ItemIsMovable, true);
     setFlag(QGraphicsItem::ItemIsSelectable, true);

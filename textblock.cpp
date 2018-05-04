@@ -4,7 +4,6 @@
 TextBlock::TextBlock(QGraphicsItem *parent)
     : QGraphicsTextItem(parent)
 {
-    setFlag(QGraphicsItem::ItemIsMovable);
     setFlag(QGraphicsItem::ItemIsSelectable);
 }
 

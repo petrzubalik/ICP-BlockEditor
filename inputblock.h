@@ -1,14 +1,14 @@
 #ifndef INPUTBLOCK_H
 #define INPUTBLOCK_H
 
-#include <QGraphicsPixmapItem>
+#include "baseblock.h"
 #include "textblock.h"
 
 
-class InputBlock : public QGraphicsPixmapItem
+class InputBlock : public BaseBlock
 {
 public:
-    InputBlock(QGraphicsItem *parent = 0);
+    InputBlock(QMenu *contextMenu, QGraphicsItem *parent = 0);
 private:
     TextBlock *textBlock;
 };
