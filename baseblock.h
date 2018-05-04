@@ -28,6 +28,7 @@ public:
     enum BlockType { Addition, Subtraction, Multiplication, Division, InputBlock, OutputBlock };
 
     BaseBlock(BlockType blockType, QString img, QMenu *contextMenu, QGraphicsItem *parent = 0);
+    virtual ~BaseBlock();
 
 //    void removeConnection(Connection *connection);
 //    void removeConnection();
@@ -36,7 +37,12 @@ public:
 //    QPixmap image() const;
     int type() const Q_DECL_OVERRIDE { return Type;}
     virtual bool all_ports_used() = 0;
-    virtual ~BaseBlock();
+    virtual bool has_value();
+    virtual bool is_computable();
+    virtual void operation();
+    virtual void propagate();
+    bool propagated;
+
 
 protected:
    // void contextMenuEvent(QGraphicsSceneContextMenuEvent *event) Q_DECL_OVERRIDE;

@@ -33,6 +33,7 @@ public:
     MainWindow();
     ~MainWindow();
 
+    // predelat na jednotlive typy
     std::vector<BaseBlock*> operation_blocks;
     std::vector<BaseBlock*> input_blocks;
     std::vector<BaseBlock*> output_blocks;

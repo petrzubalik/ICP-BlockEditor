@@ -36,6 +36,8 @@ void BlockScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
 {
     if (mouseEvent->button() != Qt::LeftButton)
         return;
+
+    // predelat na jednotlive typy !!!
     BaseBlock *block;
 
     switch (myMode) {

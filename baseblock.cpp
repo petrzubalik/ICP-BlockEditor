@@ -17,3 +17,26 @@ BaseBlock::~BaseBlock()
     ;
 }
 
+// dumb method
+bool BaseBlock::has_value()
+{
+    return true;
+}
+
+// dumb method
+bool BaseBlock::is_computable()
+{
+    return true;
+}
+
+// dumb method
+void BaseBlock::operation()
+{
+    ;
+}
+
+// dumb method
+void BaseBlock::propagate()
+{
+    ;
+}

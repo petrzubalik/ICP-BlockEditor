@@ -3,6 +3,7 @@
 #include <iostream>
 
 #include <QtWidgets>
+#include <QMessageBox>
 
 #include "blockitem.h"
 
@@ -221,15 +222,64 @@ void MainWindow::deleteItem()
 
 void MainWindow::compute(int)
 {
-//    // 1. check that all ports are used (connected)
-//    for (BaseBlock *block : operation_blocks)
-//    {
-//        if (!block->all_ports_used())
-//        {
-//            // inform the user
-//            return;
-//        }
-//    }
+    QMessageBox msgBox;
+    // 1. check that all ports are used (connected)
+    for (BaseBlock *block : operation_blocks)
+    {
+        if (!block->all_ports_used())
+        {
+            msgBox.setText("All ports must be connected");
+            msgBox.exec();
+            return;
+        }
+    }
+
+    // 2. check that all input blocks have values
+    for (BaseBlock *input : input_blocks)
+    {
+        if (!input->has_value())
+        {
+            if (input->all_ports_used())
+            {
+                msgBox.setText("All input blocks must have values");
+                msgBox.exec();
+                return;
+            }
+        }
+    }
+
+    // 3. propagate input blocks
+    for (BaseBlock *input : input_blocks)
+    {
+        input->propagate();
+    }
+
+    int counter = 0;
+    for (int i = 0; i < operation_blocks.size(); i++)
+    {
+        for (BaseBlock *block : operation_blocks)
+        {
+            if (block->is_computable() && (!block->propagated))
+            {
+                block->operation();
+                counter++;
+                break;
+            }
+        }
+    }
+
+//    std::cout << "counter = " << counter << std::endl;
+//    std::cout << "block size = " << operation_blocks.size() << std::endl;
+
+    if (counter < operation_blocks.size())
+    {
+        msgBox.setText("ERROR: scheme contains cycles");
+        msgBox.exec();
+        return;
+    }
+
+
+    //
 
 }
 

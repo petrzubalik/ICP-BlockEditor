@@ -34,14 +34,11 @@ void OutputBlock::paint(QPainter *painter, const QStyleOptionGraphicsItem *optio
     font.setPixelSize(24);
     painter->setFont(font);
 
-    QString text = QString::number(42.5);
-    painter->drawText(40, -5, 100, 100, Qt::AlignCenter, text);
-
-//    if (in_port->has_value)
-//    {
-//        QString text = QString::number(in_port->get_value());
-//        painter->drawText(100, 40, 100, 100, Qt::AlignCenter, text);
-//    }
+    if (in_port->has_value)
+    {
+        QString text = QString::number(in_port->get_value());
+        painter->drawText(40, -5, 100, 100, Qt::AlignCenter, text);
+    }
 }
 
 bool OutputBlock::all_ports_used()
