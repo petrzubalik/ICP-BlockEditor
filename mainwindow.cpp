@@ -100,6 +100,13 @@ void MainWindow::createToolbars()
 {
     editToolBar = addToolBar(tr("Edit"));
     editToolBar->addAction(deleteAction);
+    QToolButton *playButton = new QToolButton;
+    playButton->setIcon(QIcon(":play.png"));
+    editToolBar->addWidget(playButton);
+
+    QToolButton *debugButton = new QToolButton;
+    debugButton->setIcon(QIcon(":debug.png"));
+    editToolBar->addWidget(debugButton);
 
     QToolButton *pointerButton = new QToolButton;
     pointerButton->setCheckable(true);
