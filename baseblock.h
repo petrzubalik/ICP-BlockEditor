@@ -35,6 +35,7 @@ public:
 //    void addConnection(Connection *connection);
 //    QPixmap image() const;
     int type() const Q_DECL_OVERRIDE { return Type;}
+    virtual bool all_ports_used() = 0;
     virtual ~BaseBlock();
 
 protected:

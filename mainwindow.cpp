@@ -105,7 +105,9 @@ void MainWindow::createToolbars()
     playButton->setIcon(QIcon(":play.png"));
     editToolBar->addWidget(playButton);
 
-    MainWindow::connect(playButton, SIGNAL(buttonClicked(int)),
+    tempGroup = new QButtonGroup(this);
+    tempGroup->addButton(playButton, 12);
+    connect(tempGroup, SIGNAL(buttonClicked(int)),
             this, SLOT(compute(int)));
 
     QToolButton *debugButton = new QToolButton;
@@ -211,9 +213,24 @@ void MainWindow::sceneScaleChanged(const QString &scale)
     view->scale(newScale, newScale);
 }
 
+
+void MainWindow::deleteItem()
+{
+    ;
+}
+
 void MainWindow::compute(int)
 {
-    std::cout << "Run button clicked!" << std::endl;
+//    // 1. check that all ports are used (connected)
+//    for (BaseBlock *block : operation_blocks)
+//    {
+//        if (!block->all_ports_used())
+//        {
+//            // inform the user
+//            return;
+//        }
+//    }
+
 }
 
 

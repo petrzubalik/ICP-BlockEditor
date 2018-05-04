@@ -11,6 +11,7 @@ public:
     OutputBlock(QMenu *contextMenu, QGraphicsItem *parent = 0);
     ~OutputBlock();
     bool showed;
+    bool all_ports_used();
     InputPort *in_port;
 
 protected:

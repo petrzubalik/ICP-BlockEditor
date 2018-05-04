@@ -39,7 +39,7 @@ public:
 
 private slots:
     void buttonGroupClicked(int id);
-//    void deleteItem();
+    void deleteItem();
     void pointerGroupClicked(int id);
     void compute(int);
 
@@ -76,6 +76,7 @@ private:
 
     QToolBox *toolBox;
     QButtonGroup *buttonGroup;
+    QButtonGroup *tempGroup;
     QButtonGroup *pointerTypeGroup;
 
 };

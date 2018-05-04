@@ -18,16 +18,31 @@ BlockItem::~BlockItem()
 
 bool BlockItem::is_computable()
 {
-    bool computable = true;
 
     for (InputPort *in_port: in_ports)
-
     {
-        if (!in_port->used)
+        if (!in_port->has_value)
         {
-            computable = false;
-            break;
+            return false;
         }
     }
-    return computable;
+    return true;
+}
+
+
+bool BlockItem::all_ports_used()
+{
+    if (!out_port->used)
+    {
+        return false;
+    }
+
+    for (InputPort *port : in_ports)
+    {
+        if (!port->used)
+        {
+            return false;
+        }
+    }
+    return true;
 }

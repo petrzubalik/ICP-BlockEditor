@@ -12,6 +12,7 @@ public:
     bool has_value();
     void propagate();
     OutputPort *out_port;
+    bool all_ports_used();
 
     InputBlock(QMenu *contextMenu, QGraphicsItem *parent = 0);
 

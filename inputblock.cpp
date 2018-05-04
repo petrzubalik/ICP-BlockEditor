@@ -57,5 +57,10 @@ void InputBlock::propagate()
     propagated = true;
 }
 
+bool InputBlock::all_ports_used()
+{
+    return out_port->used;
+}
+
 
 

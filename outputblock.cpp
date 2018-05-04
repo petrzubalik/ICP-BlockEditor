@@ -42,6 +42,12 @@ void OutputBlock::paint(QPainter *painter, const QStyleOptionGraphicsItem *optio
 //        QString text = QString::number(in_port->get_value());
 //        painter->drawText(100, 40, 100, 100, Qt::AlignCenter, text);
 //    }
-
-
 }
+
+bool OutputBlock::all_ports_used()
+{
+    return in_port->used;
+}
+
+
+
