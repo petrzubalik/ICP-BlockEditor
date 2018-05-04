@@ -1,10 +1,14 @@
 <RCC>
     <qresource prefix="/">
-        <file>block_div.jpg</file>
+	<file>div_block.jpg</file>
+	<file>mul_block.jpg</file>
+	<file>sub_block.jpg</file>
         <file>linepointer.png</file>
         <file>pointer.png</file>
         <file>delete.png</file>
         <file>port.png</file>
         <file>input.jpg</file>
+	<file>add_block.jpg</file>
+	<file>output.jpg</file>
     </qresource>
 </RCC>

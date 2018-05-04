@@ -4,6 +4,7 @@
 #include "blockscene.h"
 #include "operations.h"
 #include "inputblock.h"
+#include "outputblock.h"
 #include "port.h"
 
 BlockScene::BlockScene(QMenu *itemMenu, QObject *parent)
@@ -44,8 +45,20 @@ void BlockScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
                 case BaseBlock::InputBlock:
                     block = new InputBlock(myItemMenu);
                     break;
+                case BaseBlock::Subtraction:
+                    block = new Subtraction(myItemMenu);
+                    break;
+                case BaseBlock::Multiplication:
+                    block = new Multiplication(myItemMenu);
+                    break;
+                case BaseBlock::Division:
+                    block = new Division(myItemMenu);
+                    break;
+                case BaseBlock::OutputBlock:
+                    block = new OutputBlock(myItemMenu);
+                    break;
                 default:
-                    block = new Addition(myItemMenu);
+                    ;
             }
 
             addItem(block);

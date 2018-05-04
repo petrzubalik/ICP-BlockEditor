@@ -53,11 +53,11 @@ void MainWindow::createToolBox()
 
     QGridLayout *layout = new QGridLayout;
     layout->addWidget(createCellWidget(tr("Addition"), BaseBlock::Addition), 0, 0);
-    layout->addWidget(createCellWidget(tr("Subtraction"), BaseBlock::Addition),0, 1);
-    layout->addWidget(createCellWidget(tr("Multiplication"), BaseBlock::Addition), 1, 0);
-    layout->addWidget(createCellWidget(tr("Division"), BaseBlock::Addition), 1, 1);
+    layout->addWidget(createCellWidget(tr("Subtraction"), BaseBlock::Subtraction),0, 1);
+    layout->addWidget(createCellWidget(tr("Multiplication"), BaseBlock::Multiplication), 1, 0);
+    layout->addWidget(createCellWidget(tr("Division"), BaseBlock::Division), 1, 1);
     layout->addWidget(createCellWidget(tr("Input"), BaseBlock::InputBlock), 2, 0);
-    layout->addWidget(createCellWidget(tr("Output"), BaseBlock::Addition), 2, 1);
+    layout->addWidget(createCellWidget(tr("Output"), BaseBlock::OutputBlock), 2, 1);
 
 
     layout->setRowStretch(3, 10);
@@ -135,13 +135,25 @@ QWidget *MainWindow::createCellWidget(const QString &text, BaseBlock::BlockType 
     switch (type)
     {
         case BaseBlock::Addition:
-            pixmap = new QPixmap(":block_div.jpg");
+            pixmap = new QPixmap(":add_block.jpg");
             break;
         case BaseBlock::InputBlock:
             pixmap = new QPixmap(":input.jpg");
             break;
+        case BaseBlock::Subtraction:
+            pixmap = new QPixmap(":sub_block.jpg");
+            break;
+        case BaseBlock::Division:
+            pixmap = new QPixmap(":div_block.jpg");
+            break;
+        case BaseBlock::Multiplication:
+            pixmap = new QPixmap(":mul_block.jpg");
+            break;
+        case BaseBlock::OutputBlock:
+            pixmap = new QPixmap(":output.jpg");
+            break;
         default:
-            pixmap = new QPixmap(":block_div.jpg");
+            ;
             break;
     }
 

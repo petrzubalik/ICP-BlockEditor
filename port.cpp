@@ -15,6 +15,17 @@ Port::~Port()
 }
 
 
+void Port::set_value(double val)
+{
+    value = val;
+}
+
+double Port::get_value()
+{
+    return value;
+}
+
+
 InputPort::InputPort(QGraphicsItem *parent)
     : Port(Port::Input, parent)
 {
@@ -23,6 +34,7 @@ InputPort::InputPort(QGraphicsItem *parent)
     has_value = false;
 
 }
+
 
 OutputPort::OutputPort(QGraphicsItem *parent)
     : Port(Port::Output, parent)

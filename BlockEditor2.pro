@@ -33,7 +33,8 @@ SOURCES += \
     port.cpp \
     operations.cpp \
     textblock.cpp \
-    inputblock.cpp
+    inputblock.cpp \
+    outputblock.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -44,7 +45,8 @@ HEADERS += \
     port.h \
     operations.h \
     textblock.h \
-    inputblock.h
+    inputblock.h \
+    outputblock.h
 
 FORMS += \
         mainwindow.ui
