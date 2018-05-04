@@ -254,8 +254,9 @@ void MainWindow::compute(int)
         input->propagate();
     }
 
-    int counter = 0;
-    for (int i = 0; i < operation_blocks.size(); i++)
+    // 4. compute all operation blocks
+    unsigned int counter = 0;
+    for (unsigned int i = 0; i < operation_blocks.size(); i++)
     {
         for (BaseBlock *block : operation_blocks)
         {
@@ -268,9 +269,7 @@ void MainWindow::compute(int)
         }
     }
 
-//    std::cout << "counter = " << counter << std::endl;
-//    std::cout << "block size = " << operation_blocks.size() << std::endl;
-
+    // check presence of connection loops
     if (counter < operation_blocks.size())
     {
         msgBox.setText("ERROR: scheme contains cycles");
@@ -278,6 +277,14 @@ void MainWindow::compute(int)
         return;
     }
 
+    // update the scene ???
+    scene->update();
+
+    // clean blocks
+    for (BaseBlock *block : operation_blocks)
+    {
+        block->propagated = false;
+    }
 
     //
 
