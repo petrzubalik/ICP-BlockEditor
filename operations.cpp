@@ -22,7 +22,20 @@ Addition::Addition(QMenu *contextMenu, QGraphicsItem *parent)
 
 void Addition::operation()
 {
-    ;
+
+
+    double op1 = in_ports[0]->get_value();
+    double op2 = in_ports[1]->get_value();
+
+    double result = op1 + op2;
+
+    for (Connection *connection : out_port->connections)
+    {
+        InputPort *dest_port = connection->get_dest_port();
+
+        dest_port->set_value(result);
+        dest_port->has_value = true;
+    }
 }
 
 Addition::~Addition()
@@ -56,7 +69,18 @@ Subtraction::Subtraction(QMenu *contextMenu, QGraphicsItem *parent)
 
 void Subtraction::operation()
 {
-    ;
+    double op1 = in_ports[0]->get_value();
+    double op2 = in_ports[1]->get_value();
+
+    double result = op1 - op2;
+
+    for (Connection *connection : out_port->connections)
+    {
+        InputPort *dest_port = connection->get_dest_port();
+
+        dest_port->set_value(result);
+        dest_port->has_value = true;
+    }
 }
 
 Subtraction::~Subtraction()
@@ -85,7 +109,18 @@ Multiplication::Multiplication(QMenu *contextMenu, QGraphicsItem *parent)
 
 void Multiplication::operation()
 {
-    ;
+    double op1 = in_ports[0]->get_value();
+    double op2 = in_ports[1]->get_value();
+
+    double result = op1 * op2;
+
+    for (Connection *connection : out_port->connections)
+    {
+        InputPort *dest_port = connection->get_dest_port();
+
+        dest_port->set_value(result);
+        dest_port->has_value = true;
+    }
 }
 
 Multiplication::~Multiplication()
@@ -113,7 +148,23 @@ Division::Division(QMenu *contextMenu, QGraphicsItem *parent)
 
 void Division::operation()
 {
-    ;
+    double op1 = in_ports[0]->get_value();
+    double op2 = in_ports[1]->get_value();
+
+    if (op2 == 0)
+    {
+        throw std::logic_error("Division by zero!");
+    }
+
+    double result = op1 / op2;
+
+    for (Connection *connection : out_port->connections)
+    {
+        InputPort *dest_port = connection->get_dest_port();
+
+        dest_port->set_value(result);
+        dest_port->has_value = true;
+    }
 }
 
 
