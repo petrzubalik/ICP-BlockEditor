@@ -52,6 +52,7 @@ private:
     void createActions();
     void createMenus();
     void createToolbars();
+    void clean_blocks();
 
 
     QWidget *createCellWidget(const QString &text,

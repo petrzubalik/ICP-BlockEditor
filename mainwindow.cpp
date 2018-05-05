@@ -262,9 +262,20 @@ void MainWindow::compute(int)
         {
             if (block->is_computable() && (!block->propagated))
             {
-                block->operation();
-                counter++;
-                break;
+                try
+                {
+                    block->operation();
+                    counter++;
+                    break;
+                }
+                catch (std::logic_error)
+                {
+                    msgBox.setText("ERROR: division by zero");
+                    msgBox.exec();
+                    clean_blocks();
+                    return;
+                }
+
             }
         }
     }
@@ -281,13 +292,18 @@ void MainWindow::compute(int)
     scene->update();
 
     // clean blocks
+    clean_blocks();
+
+    //
+
+}
+
+void MainWindow::clean_blocks()
+{
     for (BaseBlock *block : operation_blocks)
     {
         block->propagated = false;
     }
-
-    //
-
 }
 
 
