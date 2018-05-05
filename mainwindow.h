@@ -43,6 +43,9 @@ private slots:
     void deleteItem();
     void pointerGroupClicked(int id);
     void compute(int);
+    void debug(int);
+    void step(int);
+    void stop(int);
 
     void itemInserted(BaseBlock *item);
     void sceneScaleChanged(const QString &scale);
@@ -79,6 +82,9 @@ private:
     QToolBox *toolBox;
     QButtonGroup *buttonGroup;
     QButtonGroup *tempGroup;
+    QButtonGroup *debugGroup;
+    QButtonGroup *stepGroup;
+    QButtonGroup *stopGroup;
     QButtonGroup *pointerTypeGroup;
 
 };

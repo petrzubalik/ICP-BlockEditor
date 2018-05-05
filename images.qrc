@@ -12,5 +12,7 @@
         <file>output.jpg</file>
         <file>play.png</file>
         <file>debug.png</file>
+        <file>step.png</file>
+        <file>stop.png</file>
     </qresource>
 </RCC>

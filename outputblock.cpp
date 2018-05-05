@@ -39,6 +39,12 @@ void OutputBlock::paint(QPainter *painter, const QStyleOptionGraphicsItem *optio
         QString text = QString::number(in_port->get_value());
         painter->drawText(40, -5, 100, 100, Qt::AlignCenter, text);
     }
+
+//    QPainterPath path;
+//    path.addRoundRect(boundingRect(), 0);
+//    QPen myPen(Qt::blue, 10);
+//    painter->setPen(myPen);
+//    painter->drawPath(path);
 }
 
 bool OutputBlock::all_ports_used()

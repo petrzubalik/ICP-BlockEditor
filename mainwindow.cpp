@@ -102,6 +102,7 @@ void MainWindow::createToolbars()
 {
     editToolBar = addToolBar(tr("Edit"));
     editToolBar->addAction(deleteAction);
+
     QToolButton *playButton = new QToolButton;
     playButton->setIcon(QIcon(":play.png"));
     editToolBar->addWidget(playButton);
@@ -114,6 +115,31 @@ void MainWindow::createToolbars()
     QToolButton *debugButton = new QToolButton;
     debugButton->setIcon(QIcon(":debug.png"));
     editToolBar->addWidget(debugButton);
+
+    debugGroup = new QButtonGroup(this);
+    debugGroup->addButton(debugButton, 13);
+    connect(debugGroup, SIGNAL(buttonClicked(int)),
+            this, SLOT(debug(int)));
+
+    QToolButton *stepButton = new QToolButton;
+    stepButton->setIcon(QIcon(":step.png"));
+    stepButton->setEnabled(false);
+    editToolBar->addWidget(stepButton);
+
+    stepGroup = new QButtonGroup(this);
+    stepGroup->addButton(stepButton, 14);
+    connect(stepGroup, SIGNAL(buttonClicked(int)),
+            this, SLOT(step(int)));
+
+    QToolButton *stopButton = new QToolButton;
+    stopButton->setIcon(QIcon(":stop.png"));
+    stopButton->setEnabled(false);
+    editToolBar->addWidget(stopButton);
+
+    stopGroup = new QButtonGroup(this);
+    stopGroup->addButton(stopButton, 15);
+    connect(stopGroup, SIGNAL(buttonClicked(int)),
+            this, SLOT(stop(int)));
 
     QToolButton *pointerButton = new QToolButton;
     pointerButton->setCheckable(true);
@@ -288,7 +314,7 @@ void MainWindow::compute(int)
         return;
     }
 
-    // update the scene ???
+    // update the scene
     scene->update();
 
     // clean blocks
@@ -307,5 +333,28 @@ void MainWindow::clean_blocks()
 }
 
 
+void MainWindow::debug(int)
+{
+    std::cout << "Debug button clicked !" << std::endl;
+    stepGroup->button(14)->setEnabled(true);
+    stopGroup->button(15)->setEnabled(true);
 
+    buttonGroup->disconnect(); // better use disable ???
 
+}
+
+void MainWindow::step(int)
+{
+    std::cout << "Step button clicked !" << std::endl;
+}
+
+void MainWindow::stop(int)
+{
+    std::cout << "Stop button clicked !" << std::endl;
+    stepGroup->button(14)->setEnabled(false);
+    stopGroup->button(15)->setEnabled(false);
+
+    connect(buttonGroup, SIGNAL(buttonClicked(int)),
+            this, SLOT(buttonGroupClicked(int)));
+
+}
