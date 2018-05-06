@@ -246,21 +246,25 @@ void MainWindow::deleteItem()
     ;
 }
 
-void MainWindow::compute(int)
+bool MainWindow::allPortsUsed()
 {
     QMessageBox msgBox;
-    // 1. check that all ports are used (connected)
+    // check that all ports are used (connected)
     for (BaseBlock *block : operation_blocks)
     {
         if (!block->all_ports_used())
         {
             msgBox.setText("All ports must be connected");
             msgBox.exec();
-            return;
+            return false;
         }
     }
+    return true;
+}
 
-    // 2. check that all input blocks have values
+bool MainWindow::all_input_values()
+{
+    QMessageBox msgBox;
     for (BaseBlock *input : input_blocks)
     {
         if (!input->has_value())
@@ -269,9 +273,26 @@ void MainWindow::compute(int)
             {
                 msgBox.setText("All input blocks must have values");
                 msgBox.exec();
-                return;
+                return false;
             }
         }
+    }
+    return true;
+}
+
+void MainWindow::compute(int)
+{
+    QMessageBox msgBox;
+    // 1. check that all ports are used (connected)
+    if (!allPortsUsed())
+    {
+        return;
+    }
+
+    // 2. check that all input blocks have values
+    if (!all_input_values())
+    {
+        return;
     }
 
     // 3. propagate input blocks
@@ -340,6 +361,7 @@ void MainWindow::debug(int)
     stopGroup->button(15)->setEnabled(true);
 
     buttonGroup->disconnect(); // better use disable ???
+
 
 }
 

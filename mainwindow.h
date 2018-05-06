@@ -56,6 +56,8 @@ private:
     void createMenus();
     void createToolbars();
     void clean_blocks();
+    bool allPortsUsed();
+    bool all_input_values();
 
 
     QWidget *createCellWidget(const QString &text,
