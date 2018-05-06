@@ -1,3 +1,5 @@
+#include <QPen>
+#include <QPainter>
 #include "blockitem.h"
 #include "port.h"
 
@@ -46,3 +48,26 @@ bool BlockItem::all_ports_used()
     }
     return true;
 }
+
+void BlockItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *options,
+          QWidget *widget)
+{
+    QGraphicsPixmapItem::paint(painter, options, widget);
+    if (debug && propagated)
+    {
+        QPainterPath path;
+        path.addRoundRect(boundingRect(), 0);
+        QPen myPen(Qt::blue, 10);
+        painter->setPen(myPen);
+        painter->drawPath(path);
+
+        QFont font = painter->font();
+        font.setPixelSize(24);
+        painter->setFont(font);
+        QString text = QString::number(out_port->get_value());
+        painter->drawText(40, -5, 100, 100, Qt::AlignCenter, text);
+    }
+}
+
+
+

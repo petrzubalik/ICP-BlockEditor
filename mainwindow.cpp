@@ -362,12 +362,54 @@ void MainWindow::debug(int)
 
     buttonGroup->disconnect(); // better use disable ???
 
+    clean_blocks();
+    if (!allPortsUsed())
+    {
+        stop(0);
+        return;
+    }
+
+    if (!all_input_values())
+    {
+        stop(0);
+        return;
+    }
+
+    // 3. propagate input blocks
+    for (BaseBlock *input : input_blocks)
+    {
+        input->propagate();
+    }
 
 }
 
 void MainWindow::step(int)
 {
+    QMessageBox msgBox;
     std::cout << "Step button clicked !" << std::endl;
+
+    for (BaseBlock *block : operation_blocks)
+    {
+        if (block->is_computable() && (!block->propagated))
+        {
+            try
+            {
+                block->operation();
+                block->debug = true;
+                scene->update();
+                return;
+            }
+            catch (std::logic_error)
+            {
+                msgBox.setText("ERROR: division by zero");
+                msgBox.exec();
+                clean_blocks();
+                return;
+            }
+
+        }
+    }
+    stop(0);
 }
 
 void MainWindow::stop(int)
@@ -378,5 +420,11 @@ void MainWindow::stop(int)
 
     connect(buttonGroup, SIGNAL(buttonClicked(int)),
             this, SLOT(buttonGroupClicked(int)));
+    for (BaseBlock *block : operation_blocks)
+    {
+        block->debug = false;
+        block->propagated = false;
+    }
+    scene->update();
 
 }

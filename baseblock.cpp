@@ -10,6 +10,7 @@ BaseBlock::BaseBlock(BlockType blocktype, QString img, QMenu *contextMenu, QGrap
 {
     myBlockType = blocktype;
     myContextMenu = contextMenu;
+    debug = false;
 }
 
 BaseBlock::~BaseBlock()

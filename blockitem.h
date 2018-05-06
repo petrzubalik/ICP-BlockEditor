@@ -15,11 +15,13 @@ public:
 
 //    bool propagated;
     virtual void operation() = 0;
-    bool is_computable();
-    bool all_ports_used();
+    bool is_computable() override;
+    bool all_ports_used() override;
 
     std::vector<InputPort*> in_ports;
     OutputPort *out_port;
+protected:
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = 0) Q_DECL_OVERRIDE;
 };
 
 #endif // BLOCKITEM_H

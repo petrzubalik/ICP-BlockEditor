@@ -42,6 +42,7 @@ public:
     virtual void operation();
     virtual void propagate();
     bool propagated;
+    bool debug;
 
 
 protected:
