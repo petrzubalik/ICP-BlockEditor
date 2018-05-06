@@ -3,7 +3,8 @@
 
 #include <QGraphicsScene>
 #include "blockitem.h"
-
+#include "outputblock.h"
+#include "inputblock.h"
 
 class MainWindow;
 
@@ -31,8 +32,10 @@ public slots:
     void setItemType(BaseBlock::BlockType type);
 
 signals:
-    void itemInserted(BaseBlock *item);
+//    void itemInserted(BaseBlock *item);
     void itemInserted(BlockItem *item);
+    void itemInserted(InputBlock *item);
+    void itemInserted(OutputBlock *item);
 
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent) Q_DECL_OVERRIDE;
@@ -41,7 +44,6 @@ protected:
 
 private:
 //    bool isItemChange(int type);
-
     BlockItem::BlockType myItemType;
     QMenu *myItemMenu;
     Mode myMode;

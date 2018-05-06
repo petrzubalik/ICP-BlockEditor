@@ -18,8 +18,12 @@ MainWindow::MainWindow()
 
     scene = new BlockScene(this, itemMenu, this);
     scene->setSceneRect(QRectF(0, 0, 5000, 5000));
-    connect(scene, SIGNAL(itemInserted(BaseBlock*)),
-            this, SLOT(itemInserted(BaseBlock*)));
+    connect(scene, SIGNAL(itemInserted(BlockItem*)),
+            this, SLOT(itemInserted(BlockItem*)));
+    connect(scene, SIGNAL(itemInserted(InputBlock*)),
+            this, SLOT(itemInserted(InputBlock*)));
+    connect(scene, SIGNAL(itemInserted(OutputBlock*)),
+            this, SLOT(itemInserted(OutputBlock*)));
 
     createToolbars();
 
@@ -41,7 +45,21 @@ MainWindow::~MainWindow()
     ;
 }
 
-void MainWindow::itemInserted(BaseBlock *item)
+void MainWindow::itemInserted(BlockItem *item)
+{
+    pointerTypeGroup->button(int(BlockScene::MoveBlock))->setChecked(true);
+    scene->setMode(BlockScene::Mode(pointerTypeGroup->checkedId()));
+    buttonGroup->button(int(item->blockType()))->setChecked(false);
+}
+
+void MainWindow::itemInserted(InputBlock *item)
+{
+    pointerTypeGroup->button(int(BlockScene::MoveBlock))->setChecked(true);
+    scene->setMode(BlockScene::Mode(pointerTypeGroup->checkedId()));
+    buttonGroup->button(int(item->blockType()))->setChecked(false);
+}
+
+void MainWindow::itemInserted(OutputBlock *item)
 {
     pointerTypeGroup->button(int(BlockScene::MoveBlock))->setChecked(true);
     scene->setMode(BlockScene::Mode(pointerTypeGroup->checkedId()));
@@ -260,7 +278,7 @@ bool MainWindow::allPortsUsed()
 {
     QMessageBox msgBox;
     // check that all ports are used (connected)
-    for (BaseBlock *block : operation_blocks)
+    for (BlockItem *block : operation_blocks)
     {
         if (!block->all_ports_used())
         {
@@ -275,7 +293,7 @@ bool MainWindow::allPortsUsed()
 bool MainWindow::all_input_values()
 {
     QMessageBox msgBox;
-    for (BaseBlock *input : input_blocks)
+    for (InputBlock *input : input_blocks)
     {
         if (!input->has_value())
         {
@@ -306,7 +324,7 @@ void MainWindow::compute(int)
     }
 
     // 3. propagate input blocks
-    for (BaseBlock *input : input_blocks)
+    for (InputBlock *input : input_blocks)
     {
         input->propagate();
     }
@@ -315,7 +333,7 @@ void MainWindow::compute(int)
     unsigned int counter = 0;
     for (unsigned int i = 0; i < operation_blocks.size(); i++)
     {
-        for (BaseBlock *block : operation_blocks)
+        for (BlockItem *block : operation_blocks)
         {
             if (block->is_computable() && (!block->propagated))
             {
@@ -357,7 +375,7 @@ void MainWindow::compute(int)
 
 void MainWindow::clean_blocks()
 {
-    for (BaseBlock *block : operation_blocks)
+    for (BlockItem *block : operation_blocks)
     {
         block->propagated = false;
     }
@@ -386,7 +404,7 @@ void MainWindow::debug(int)
     }
 
     // 3. propagate input blocks
-    for (BaseBlock *input : input_blocks)
+    for (InputBlock *input : input_blocks)
     {
         input->propagate();
     }
@@ -398,7 +416,7 @@ void MainWindow::step(int)
     QMessageBox msgBox;
     std::cout << "Step button clicked !" << std::endl;
 
-    for (BaseBlock *block : operation_blocks)
+    for (BlockItem *block : operation_blocks)
     {
         if (block->is_computable() && (!block->propagated))
         {
@@ -430,7 +448,7 @@ void MainWindow::stop(int)
 
     connect(buttonGroup, SIGNAL(buttonClicked(int)),
             this, SLOT(buttonGroupClicked(int)));
-    for (BaseBlock *block : operation_blocks)
+    for (BlockItem *block : operation_blocks)
     {
         block->debug = false;
         block->propagated = false;
@@ -479,20 +497,30 @@ void MainWindow::saveScheme()
     out << (quint32)output_blocks.size();
 
     // 2) write all blocks
-    for (BaseBlock *block : input_blocks)
+    for (InputBlock *block : input_blocks)
     {
         out << block;
     }
-    for (BaseBlock *block : operation_blocks)
+    for (BlockItem *block : operation_blocks)
     {
         out << block;
     }
-    for (BaseBlock *block : output_blocks)
+    for (OutputBlock *block : output_blocks)
     {
         out << block;
     }
 }
 
+//QDataStream &operator<<(QDataStream &out, InputBlock *block)
+//{
+//    out << block->pos();
+//    out << (quint32)block->out_port
+//    for (Connection *connection : block->out_port)
+//    {
+//        QGraphicsItem *parent = block->parentItem();
 
+
+//    }
+//}
 
 

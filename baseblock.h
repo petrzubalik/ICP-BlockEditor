@@ -30,19 +30,9 @@ public:
     BaseBlock(BlockType blockType, QString img, QMenu *contextMenu, QGraphicsItem *parent = 0);
     virtual ~BaseBlock();
 
-//    void removeConnection(Connection *connection);
-//    void removeConnection();
     BlockType blockType() const { return myBlockType; }
-//    void addConnection(Connection *connection);
-//    QPixmap image() const;
     int type() const Q_DECL_OVERRIDE { return Type;}
     virtual bool all_ports_used() = 0;
-    virtual bool has_value();
-    virtual bool is_computable();
-    virtual void operation();
-    virtual void propagate();
-    bool propagated;
-    bool debug;
 
 
 protected:

@@ -7,6 +7,7 @@ BlockItem::BlockItem(BlockType blocktype, QString img, QMenu *contextMenu, QGrap
     :BaseBlock(blocktype, img, contextMenu, parent)
 {
     propagated = false;
+    debug = false;
 
     setFlag(QGraphicsItem::ItemIsMovable, true);
     setFlag(QGraphicsItem::ItemIsSelectable, true);

@@ -38,7 +38,9 @@ void BlockScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
         return;
 
     // predelat na jednotlive typy !!!
-    BaseBlock *block;
+     BlockItem *block;
+     InputBlock *in_block;
+     OutputBlock *out_block;
 
     switch (myMode) {
         case InsertBlock:
@@ -47,35 +49,50 @@ void BlockScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
                 case BaseBlock::Addition:
                     block = new Addition(myItemMenu);
                     mainWindow->operation_blocks.push_back(block);
+                    addItem(block);
+                    block->setPos(mouseEvent->scenePos());
+                    emit itemInserted(block);
                     break;
                 case BaseBlock::InputBlock:
-                    block = new InputBlock(myItemMenu);
-                    mainWindow->input_blocks.push_back(block);
+                    in_block = new InputBlock(myItemMenu);
+                    mainWindow->input_blocks.push_back(in_block);
+                    addItem(in_block);
+                    in_block->setPos(mouseEvent->scenePos());
+                    emit itemInserted(in_block);
                     break;
                 case BaseBlock::Subtraction:
                     block = new Subtraction(myItemMenu);
                     mainWindow->operation_blocks.push_back(block);
+                    addItem(block);
+                    block->setPos(mouseEvent->scenePos());
+                    emit itemInserted(block);
                     break;
                 case BaseBlock::Multiplication:
                     block = new Multiplication(myItemMenu);
                     mainWindow->operation_blocks.push_back(block);
+                    addItem(block);
+                    block->setPos(mouseEvent->scenePos());
+                    emit itemInserted(block);
                     break;
                 case BaseBlock::Division:
                     block = new Division(myItemMenu);
                     mainWindow->operation_blocks.push_back(block);
+                    addItem(block);
+                    block->setPos(mouseEvent->scenePos());
+                    emit itemInserted(block);
                     break;
                 case BaseBlock::OutputBlock:
-                    block = new OutputBlock(myItemMenu);
-                    mainWindow->output_blocks.push_back(block);
+                    out_block = new OutputBlock(myItemMenu);
+                    mainWindow->output_blocks.push_back(out_block);
+                    addItem(out_block);
+                    out_block->setPos(mouseEvent->scenePos());
+                    emit itemInserted(out_block);
                     break;
                 default:
                     ;
             }
-
-            addItem(block);
-            block->setPos(mouseEvent->scenePos());
-            emit itemInserted(block);
             break;
+
         case InsertLine:
             line = new QGraphicsLineItem(QLineF(mouseEvent->scenePos(),
                                         mouseEvent->scenePos()));

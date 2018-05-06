@@ -13,10 +13,12 @@ public:
     BlockItem(BlockType blocktype, QString img, QMenu *contextMenu, QGraphicsItem *parent = 0);
     virtual ~BlockItem();
 
-//    bool propagated;
+    bool propagated;
+    bool debug;
     virtual void operation() = 0;
-    bool is_computable() override;
+    bool is_computable();
     bool all_ports_used() override;
+
 
     std::vector<InputPort*> in_ports;
     OutputPort *out_port;

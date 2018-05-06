@@ -34,9 +34,9 @@ public:
     ~MainWindow();
 
     // predelat na jednotlive typy
-    std::vector<BaseBlock*> operation_blocks;
-    std::vector<BaseBlock*> input_blocks;
-    std::vector<BaseBlock*> output_blocks;
+    std::vector<BlockItem*> operation_blocks;
+    std::vector<InputBlock*> input_blocks;
+    std::vector<OutputBlock*> output_blocks;
 
 private slots:
     void buttonGroupClicked(int id);
@@ -48,7 +48,9 @@ private slots:
     void step(int);
     void stop(int);
 
-    void itemInserted(BaseBlock *item);
+    void itemInserted(BlockItem *item);
+    void itemInserted(InputBlock *item);
+    void itemInserted(OutputBlock *item);
     void sceneScaleChanged(const QString &scale);
 
 private:
@@ -59,6 +61,8 @@ private:
     void clean_blocks();
     bool allPortsUsed();
     bool all_input_values();
+//    QDataStream &operator<<(QDataStream &out, InputBlock*);
+
 
 
     QWidget *createCellWidget(const QString &text,
