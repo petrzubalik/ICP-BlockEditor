@@ -32,6 +32,7 @@ public slots:
 
 signals:
     void itemInserted(BaseBlock *item);
+    void itemInserted(BlockItem *item);
 
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent) Q_DECL_OVERRIDE;

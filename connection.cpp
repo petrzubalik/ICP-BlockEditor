@@ -13,8 +13,10 @@ Connection::Connection(OutputPort *p1, InputPort *p2,
     source_port = p1;
     dest_port = p2;
     setFlag(QGraphicsItem::ItemIsSelectable, true);
+    setAcceptHoverEvents(true);
+    setToolTip(QString("Unknown"));
 
-    myColor = QColor(244, 147, 56); // ?????? TODO
+    myColor = QColor(244, 147, 56);
     setPen(QPen(myColor, 2, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
 }
 
@@ -70,6 +72,22 @@ void Connection::paint(QPainter *painter, const QStyleOptionGraphicsItem *,
         painter->drawLine(myLine);
     }
 }
+
+//void Connection::hoverEnterEvent(QGraphicsSceneHoverEvent *event)
+//{
+//    std::cout << "Connection hovered" << std::endl;
+//    if (source_port->has_value)
+//    {
+//        QPainter painter = QPainter();
+//        QFont font = painter->font();
+//        font.setPixelSize(24);
+//        painter->setFont(font);
+
+//        QString text = QString::number(source_port->get_value());
+//        painter->drawText(40, -5, 100, 100, Qt::AlignCenter, text);
+//    }
+//}
+
 
 Connection::~Connection()
 {

@@ -4,6 +4,8 @@
 
 #include <QtWidgets>
 #include <QMessageBox>
+#include <QFileDialog>
+#include <QDataStream>
 
 #include "blockitem.h"
 
@@ -30,7 +32,7 @@ MainWindow::MainWindow()
     widget->setLayout(layout);
 
     setCentralWidget(widget);
-    setWindowTitle(tr("BlockEditor"));
+    setWindowTitle(tr("BlockEditor - new scheme"));
     setUnifiedTitleAndToolBarOnMac(true);
 }
 
@@ -77,24 +79,32 @@ void MainWindow::createToolBox()
 
 void MainWindow::createActions()
 {
-    deleteAction = new QAction(QIcon(":delete.png"), tr("&Delete"), this);
+    deleteAction = new QAction(QIcon(":delete.png"), tr("Delete"), this);
     deleteAction->setShortcut(tr("Delete"));
-    deleteAction->setStatusTip(tr("Delete item from editor"));
+    deleteAction->setStatusTip(tr("Delete block from scheme"));
     connect(deleteAction, SIGNAL(triggered()), this, SLOT(deleteItem()));
 
-    exitAction = new QAction(tr("E&xit"), this);
+    // remove this ?????????
+    exitAction = new QAction(tr("Exit"), this);
     exitAction->setShortcuts(QKeySequence::Quit);
-    exitAction->setStatusTip(tr("Quit Scenediagram example"));
+    exitAction->setStatusTip(tr("Quit BlockEditor application"));
     connect(exitAction, SIGNAL(triggered()), this, SLOT(close()));
+
+    saveAction = new QAction(QIcon(":save.png"), tr("Save"), this);
+    saveAction->setShortcut(tr("Save"));
+    saveAction->setStatusTip(tr("Save current scheme"));
+    connect(saveAction, SIGNAL(triggered()), this, SLOT(saveScheme()));
 }
 
 void MainWindow::createMenus()
 {
     fileMenu = menuBar()->addMenu(tr("&File"));
     fileMenu->addAction(exitAction);
+    fileMenu->addAction(saveAction);
 
     itemMenu = menuBar()->addMenu(tr("&Item"));
     itemMenu->addAction(deleteAction);
+
 }
 
 
@@ -428,3 +438,61 @@ void MainWindow::stop(int)
     scene->update();
 
 }
+
+void MainWindow::saveScheme()
+{
+    // 1. get filename
+    QString file_name = QFileDialog::getSaveFileName(this,
+            tr("Save block scheme"), "",
+            tr("Block scheme (*.blk);;All Files (*)"));
+
+    if (file_name.isEmpty())
+        return;
+
+    QFileInfo fi(file_name);
+    if (fi.suffix() != "blk")
+    {
+        QMessageBox::warning(this, "title", "Unable to open file");
+        return;
+    }
+    QFile file(file_name);
+    if (!file.open(QIODevice::WriteOnly))
+    {
+        QMessageBox::information(this, tr("Unable to open file"),
+                       file.errorString());
+        return;
+    }
+
+    // 2. Magic number + QT versior
+    QDataStream out(&file);
+
+    out << (quint32)0x15786ABC;
+    out << (quint32)1;
+
+    out.setVersion(QDataStream::Qt_5_5);
+
+    // write the data
+
+    // 1) write number of blocks;
+    out << (quint32)input_blocks.size();
+    out << (quint32)operation_blocks.size();
+    out << (quint32)output_blocks.size();
+
+    // 2) write all blocks
+    for (BaseBlock *block : input_blocks)
+    {
+        out << block;
+    }
+    for (BaseBlock *block : operation_blocks)
+    {
+        out << block;
+    }
+    for (BaseBlock *block : output_blocks)
+    {
+        out << block;
+    }
+}
+
+
+
+

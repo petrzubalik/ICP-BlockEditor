@@ -52,6 +52,7 @@ void InputBlock::propagate()
         dest_port = connection->get_dest_port();
         dest_port->has_value = true;
         dest_port->set_value(out_port->get_value());
+        connection->setToolTip(QString::number(out_port->get_value()));
     }
 
     propagated = true;

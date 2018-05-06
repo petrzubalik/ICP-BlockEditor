@@ -41,6 +41,7 @@ public:
 private slots:
     void buttonGroupClicked(int id);
     void deleteItem();
+    void saveScheme();
     void pointerGroupClicked(int id);
     void compute(int);
     void debug(int);
@@ -67,7 +68,7 @@ private:
     QGraphicsView *view;
 
     QAction *exitAction;
-    QAction *addAction;
+    QAction *saveAction;
     QAction *deleteAction;
 
 //    QAction *aboutAction;

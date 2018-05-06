@@ -26,6 +26,7 @@ public:
 
     Connection(OutputPort *source_port, InputPort *dest_port,
       QGraphicsItem *parent = 0);
+    ~Connection();
 
     int type() const Q_DECL_OVERRIDE { return Type; }
     QRectF boundingRect() const Q_DECL_OVERRIDE;
@@ -34,7 +35,6 @@ public:
     InputPort *get_dest_port() const { return dest_port; }
 
     void updatePosition();
-    ~Connection();
 
 protected:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = 0) Q_DECL_OVERRIDE;

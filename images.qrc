@@ -14,5 +14,6 @@
         <file>debug.png</file>
         <file>step.png</file>
         <file>stop.png</file>
+        <file>save.png</file>
     </qresource>
 </RCC>

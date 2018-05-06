@@ -35,9 +35,11 @@ void Addition::operation()
 
         dest_port->set_value(result);
         dest_port->has_value = true;
+        connection->setToolTip(QString::number(result));
     }
     propagated = true;
     out_port->set_value(result);
+
 }
 
 Addition::~Addition()
@@ -82,6 +84,7 @@ void Subtraction::operation()
 
         dest_port->set_value(result);
         dest_port->has_value = true;
+        connection->setToolTip(QString::number(result));
     }
     propagated = true;
     out_port->set_value(result);
@@ -124,6 +127,7 @@ void Multiplication::operation()
 
         dest_port->set_value(result);
         dest_port->has_value = true;
+        connection->setToolTip(QString::number(result));
     }
     propagated = true;
     out_port->set_value(result);
@@ -170,6 +174,7 @@ void Division::operation()
 
         dest_port->set_value(result);
         dest_port->has_value = true;
+        connection->setToolTip(QString::number(result));
     }
     propagated = true;
     out_port->set_value(result);
