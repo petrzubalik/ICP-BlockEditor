@@ -13,9 +13,12 @@ public:
     bool showed;
     bool all_ports_used() override;
     InputPort *in_port;
+    std::vector<QPointF> connected_blocks;
+    friend QDataStream &operator<<(QDataStream &out, OutputBlock* block);
 
 protected:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = 0) Q_DECL_OVERRIDE;
+
 };
 
 #endif // OUTPUTBLOCK_H

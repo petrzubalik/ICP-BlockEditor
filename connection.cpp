@@ -73,21 +73,6 @@ void Connection::paint(QPainter *painter, const QStyleOptionGraphicsItem *,
     }
 }
 
-//void Connection::hoverEnterEvent(QGraphicsSceneHoverEvent *event)
-//{
-//    std::cout << "Connection hovered" << std::endl;
-//    if (source_port->has_value)
-//    {
-//        QPainter painter = QPainter();
-//        QFont font = painter->font();
-//        font.setPixelSize(24);
-//        painter->setFont(font);
-
-//        QString text = QString::number(source_port->get_value());
-//        painter->drawText(40, -5, 100, 100, Qt::AlignCenter, text);
-//    }
-//}
-
 
 Connection::~Connection()
 {

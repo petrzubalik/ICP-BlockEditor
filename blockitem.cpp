@@ -71,4 +71,16 @@ void BlockItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *options
 }
 
 
+QDataStream& operator<<(QDataStream &out, BlockItem *block)
+{
+    out << block->pos();
+    out << (quint32)block->blockType();
+    out << (quint32)block->out_port->connections.size();
+    for (Connection *connection : block->out_port->connections)
+    {
+        QGraphicsItem *parent = connection->get_dest_port()->parentItem();
+        out << parent->pos();
+    }
+    return out;
+}
 

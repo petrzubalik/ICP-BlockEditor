@@ -42,6 +42,7 @@ private slots:
     void buttonGroupClicked(int id);
     void deleteItem();
     void saveScheme();
+    void loadScheme();
     void pointerGroupClicked(int id);
     void compute(int);
     void debug(int);
@@ -61,7 +62,12 @@ private:
     void clean_blocks();
     bool allPortsUsed();
     bool all_input_values();
-//    QDataStream &operator<<(QDataStream &out, InputBlock*);
+//    friend QDataStream& InputBlock::operator<<(InputBlock* block);
+//    friend QDataStream& BlockItem::operator<<(BlockItem* block);
+//    friend QDataStream &operator<<(OutputBlock* block);
+//    QDataStream &operator<<(QPointF point);
+//    QDataStream &operator>>(QPointF &point);
+
 
 
 
@@ -73,6 +79,7 @@ private:
 
     QAction *exitAction;
     QAction *saveAction;
+    QAction *loadAction;
     QAction *deleteAction;
 
 //    QAction *aboutAction;

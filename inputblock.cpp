@@ -64,4 +64,18 @@ bool InputBlock::all_ports_used()
 }
 
 
+QDataStream& operator<<(QDataStream &out, InputBlock *block)
+{
+    QPointF pos;
+    pos = block->pos();
+    out << pos;
+    out << (quint32)block->out_port->connections.size();
+    for (Connection *connection : block->out_port->connections)
+    {
+        QGraphicsItem *parent = connection->get_dest_port()->parentItem();
+        out << parent->pos();
+    }
+    return out;
+}
+
 

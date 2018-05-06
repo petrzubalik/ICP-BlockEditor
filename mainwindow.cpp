@@ -6,8 +6,13 @@
 #include <QMessageBox>
 #include <QFileDialog>
 #include <QDataStream>
+#include <QPoint>
+#include <QPointF>
 
 #include "blockitem.h"
+#include "port.h"
+#include "baseblock.h"
+#include "operations.h"
 
 
 MainWindow::MainWindow()
@@ -98,7 +103,6 @@ void MainWindow::createToolBox()
 void MainWindow::createActions()
 {
     deleteAction = new QAction(QIcon(":delete.png"), tr("Delete"), this);
-    deleteAction->setShortcut(tr("Delete"));
     deleteAction->setStatusTip(tr("Delete block from scheme"));
     connect(deleteAction, SIGNAL(triggered()), this, SLOT(deleteItem()));
 
@@ -109,9 +113,13 @@ void MainWindow::createActions()
     connect(exitAction, SIGNAL(triggered()), this, SLOT(close()));
 
     saveAction = new QAction(QIcon(":save.png"), tr("Save"), this);
-    saveAction->setShortcut(tr("Save"));
     saveAction->setStatusTip(tr("Save current scheme"));
     connect(saveAction, SIGNAL(triggered()), this, SLOT(saveScheme()));
+
+    loadAction = new QAction(tr("Open"), this);
+
+    loadAction->setStatusTip(tr("Open an existing scheme"));
+    connect(loadAction, SIGNAL(triggered()), this, SLOT(loadScheme()));
 }
 
 void MainWindow::createMenus()
@@ -119,6 +127,7 @@ void MainWindow::createMenus()
     fileMenu = menuBar()->addMenu(tr("&File"));
     fileMenu->addAction(exitAction);
     fileMenu->addAction(saveAction);
+    fileMenu->addAction(loadAction);
 
     itemMenu = menuBar()->addMenu(tr("&Item"));
     itemMenu->addAction(deleteAction);
@@ -485,42 +494,221 @@ void MainWindow::saveScheme()
     QDataStream out(&file);
 
     out << (quint32)0x15786ABC;
-    out << (quint32)1;
 
     out.setVersion(QDataStream::Qt_5_5);
 
     // write the data
 
-    // 1) write number of blocks;
+    // 1) write input blocks
     out << (quint32)input_blocks.size();
-    out << (quint32)operation_blocks.size();
-    out << (quint32)output_blocks.size();
 
-    // 2) write all blocks
     for (InputBlock *block : input_blocks)
     {
         out << block;
     }
+
+    // 2) write operation blocks
+    out << (quint32)operation_blocks.size();
+
     for (BlockItem *block : operation_blocks)
     {
         out << block;
     }
+
+    // 2) write output blocks
+    out << (quint32)output_blocks.size();
+
     for (OutputBlock *block : output_blocks)
     {
         out << block;
     }
+
+//    setWindowTitle(tr(file_name));
 }
 
-//QDataStream &operator<<(QDataStream &out, InputBlock *block)
-//{
-//    out << block->pos();
-//    out << (quint32)block->out_port
-//    for (Connection *connection : block->out_port)
-//    {
-//        QGraphicsItem *parent = block->parentItem();
+void MainWindow::loadScheme()
+{
+    QString file_name = QFileDialog::getOpenFileName(this,
+            tr("Open scheme"), "",
+            tr("Block schemes (*.blk);;All Files (*)"));
+    if (file_name.isEmpty())
+        return;
 
+    QFileInfo fi(file_name);
+    if (fi.suffix() != "blk")
+    {
+        QMessageBox::warning(this, "title", "Unable to open file");
+        return;
+    }
 
-//    }
-//}
+    QFile file(file_name);
+    if (!file.open(QIODevice::ReadOnly)) {
+        QMessageBox::information(this, tr("Unable to open file"),
+                    file.errorString());
+        return;
+    }
+
+    QDataStream in(&file);
+    in.setVersion(QDataStream::Qt_5_5);
+
+    // parse the data
+    input_blocks.clear();
+    operation_blocks.clear();
+    output_blocks.clear();
+
+    // 1) load input blocks
+    quint32 magic;
+    unsigned int blocks_count;
+    in >> magic;
+
+    if (magic != 0x15786ABC)
+    {
+        QMessageBox::warning(this, "title", "Unable to open file");
+        return;
+    }
+    in >> blocks_count;
+
+    for (unsigned int i = 0; i < blocks_count; i++)
+    {
+        QPointF position;
+        unsigned int connections_count;
+
+        InputBlock *block = new InputBlock(itemMenu);
+        scene->addItem(block);
+        input_blocks.push_back(block);
+        in >> position;
+        block->setPos(position);
+
+        in >> connections_count;
+        for (unsigned int j = 0; j < connections_count; j++)
+        {
+            QPointF parent_pos;
+            in >> parent_pos;
+            block->connected_blocks.push_back(parent_pos);
+        }
+    }
+
+    // 2) load operation blocks
+    in >> blocks_count;
+
+    for (unsigned int i = 0; i < blocks_count; i++)
+    {
+        QPointF position;
+        unsigned int type; // unsigned ???
+        unsigned int connections_count;
+        BlockItem *block;
+
+        in >> position;
+        in >> type;
+
+        switch (type) {
+        case BaseBlock::Addition:
+            block = new Addition(itemMenu);
+            break;
+        case BaseBlock::Subtraction:
+            block = new Subtraction(itemMenu);
+            break;
+        case BaseBlock::Multiplication:
+            block = new Multiplication(itemMenu);
+            break;
+        case BaseBlock::Division:
+            block = new Division(itemMenu);
+            break;
+        }
+        block->setPos(position);
+        scene->addItem(block);
+        operation_blocks.push_back(block);
+
+        in >> connections_count;
+        for (unsigned int j = 0; j < connections_count; j++)
+        {
+            QPointF parent_pos;
+            in >> parent_pos;
+            block->connected_blocks.push_back(parent_pos);
+        }
+    }
+
+    // 3) load output blocks
+    in >> blocks_count;
+
+    for (unsigned int i = 0; i < blocks_count; i++)
+    {
+        QPointF position;
+        OutputBlock *block = new OutputBlock(itemMenu);
+
+        in >> position;
+        block->setPos(position);
+        output_blocks.push_back(block);
+        scene->addItem(block);
+    }
+
+    // do all connections
+    for (InputBlock *block : input_blocks)
+    {
+        for (QPointF position : block->connected_blocks)
+        {
+            QGraphicsItem *p = scene->itemAt(position, view->transform());
+            BaseBlock *parent = qgraphicsitem_cast<BaseBlock *>(p);
+            Connection *connection;
+
+            if (parent->blockType() == BaseBlock::OutputBlock)
+            {
+                OutputBlock *out = qgraphicsitem_cast<OutputBlock *>(parent);
+                connection = block->out_port->connect(out->in_port);
+            }
+            else
+            {
+                BlockItem *blk = qgraphicsitem_cast<BlockItem *>(parent);
+                for (InputPort *port : blk->in_ports)
+                {
+                    if (!port->used)
+                    {
+
+                        connection = block->out_port->connect(port);
+                        break;
+                    }
+                }
+            }
+            connection->setZValue(-1000);
+            scene->addItem(connection);
+            connection->updatePosition();
+        }
+    }
+
+    for (BlockItem *block : operation_blocks)
+    {
+        for (QPointF position : block->connected_blocks)
+        {
+            QGraphicsItem *p = scene->itemAt(position, view->transform());
+            BaseBlock *parent = qgraphicsitem_cast<BaseBlock *>(p);
+            Connection *connection;
+
+            if (parent->blockType() == BaseBlock::OutputBlock)
+            {
+                OutputBlock *out = qgraphicsitem_cast<OutputBlock *>(parent);
+
+                connection = block->out_port->connect(out->in_port);
+            }
+            else
+            {
+                BlockItem *blk = qgraphicsitem_cast<BlockItem *>(parent);
+                for (InputPort *port : blk->in_ports)
+                {
+                    if (!port->used)
+                    {
+                        connection = block->out_port->connect(port);
+                        break;
+                    }
+                }
+            }
+            connection->setZValue(-1000);
+            scene->addItem(connection);
+            connection->updatePosition();
+            break;
+        }
+    }
+
+}
+
 
 

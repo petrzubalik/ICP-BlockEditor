@@ -13,6 +13,8 @@ public:
     void propagate();
     OutputPort *out_port;
     bool all_ports_used() override;
+    std::vector<QPointF> connected_blocks;
+    friend QDataStream &operator<<(QDataStream &out, InputBlock* block);
 
     InputBlock(QMenu *contextMenu, QGraphicsItem *parent = 0);
 

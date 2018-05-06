@@ -52,5 +52,11 @@ bool OutputBlock::all_ports_used()
     return in_port->used;
 }
 
+QDataStream& operator<<(QDataStream &out, OutputBlock *block)
+{
+    out << block->pos();
+    return out;
+}
+
 
 
