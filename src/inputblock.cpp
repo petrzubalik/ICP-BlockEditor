@@ -11,7 +11,7 @@
 #include "textblock.h"
 
 InputBlock::InputBlock(QMenu *contextMenu, QGraphicsItem *parent)
-    : BaseBlock(BaseBlock::InputBlock, ":input.jpg", contextMenu, parent)
+    : BaseBlock(BaseBlock::InputBlock, "://images/input.jpg", contextMenu, parent)
 {
     textBlock = new TextBlock(this);
     textBlock->setTextWidth(100.0);

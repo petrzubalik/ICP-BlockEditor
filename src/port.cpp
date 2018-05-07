@@ -10,7 +10,7 @@
 #include "connection.h"
 
 Port::Port(PortType type, QGraphicsItem *parent)
-    : QGraphicsPixmapItem(QPixmap(":port.png"), parent)
+    : QGraphicsPixmapItem(QPixmap("://images/port.png"), parent)
 {
     myType = type;
     setFlag(QGraphicsItem::ItemIsSelectable, true);

@@ -10,7 +10,7 @@
 #include "port.h"
 
 Addition::Addition(QMenu *contextMenu, QGraphicsItem *parent)
-    : BlockItem(BaseBlock::Addition, ":add_block.jpg", contextMenu, parent)
+    : BlockItem(BaseBlock::Addition, "://images/add_block.jpg", contextMenu, parent)
 {
     InputPort *p1 = new InputPort(this);
     p1->setPos(-10, 20);
@@ -62,7 +62,7 @@ Addition::~Addition()
 
 
 Subtraction::Subtraction(QMenu *contextMenu, QGraphicsItem *parent)
-    : BlockItem(BaseBlock::Subtraction, ":sub_block.jpg", contextMenu, parent)
+    : BlockItem(BaseBlock::Subtraction, "://images/sub_block.jpg", contextMenu, parent)
 {
     InputPort *p1 = new InputPort(this);
     p1->setPos(-10, 20);
@@ -110,7 +110,7 @@ Subtraction::~Subtraction()
 
 
 Multiplication::Multiplication(QMenu *contextMenu, QGraphicsItem *parent)
-    : BlockItem(BaseBlock::Multiplication, ":mul_block.jpg", contextMenu, parent)
+    : BlockItem(BaseBlock::Multiplication, "://images/mul_block.jpg", contextMenu, parent)
 {
     InputPort *p1 = new InputPort(this);
     p1->setPos(-10, 20);
@@ -157,7 +157,7 @@ Multiplication::~Multiplication()
 }
 
 Division::Division(QMenu *contextMenu, QGraphicsItem *parent)
-    : BlockItem(BaseBlock::Division, ":div_block.jpg", contextMenu, parent)
+    : BlockItem(BaseBlock::Division, "://images/div_block.jpg", contextMenu, parent)
 {
     InputPort *p1 = new InputPort(this);
     p1->setPos(-10, 20);

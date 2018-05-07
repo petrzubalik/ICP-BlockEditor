@@ -104,7 +104,7 @@ void MainWindow::createToolBox()
 
 void MainWindow::createActions()
 {
-    deleteAction = new QAction(QIcon(":delete.png"), tr("Delete"), this);
+    deleteAction = new QAction(QIcon("://images/delete.png"), tr("Delete"), this);
     deleteAction->setStatusTip(tr("Delete block from scheme"));
     connect(deleteAction, SIGNAL(triggered()), this, SLOT(deleteItem()));
 
@@ -147,7 +147,7 @@ void MainWindow::createToolbars()
     editToolBar->addAction(deleteAction);
 
     QToolButton *playButton = new QToolButton;
-    playButton->setIcon(QIcon(":play.png"));
+    playButton->setIcon(QIcon("://images/play.png"));
     editToolBar->addWidget(playButton);
 
     tempGroup = new QButtonGroup(this);
@@ -156,7 +156,7 @@ void MainWindow::createToolbars()
             this, SLOT(compute(int)));
 
     QToolButton *debugButton = new QToolButton;
-    debugButton->setIcon(QIcon(":debug.png"));
+    debugButton->setIcon(QIcon("://images/debug.png"));
     editToolBar->addWidget(debugButton);
 
     debugGroup = new QButtonGroup(this);
@@ -165,7 +165,7 @@ void MainWindow::createToolbars()
             this, SLOT(debug(int)));
 
     QToolButton *stepButton = new QToolButton;
-    stepButton->setIcon(QIcon(":step.png"));
+    stepButton->setIcon(QIcon("://images/step.png"));
     stepButton->setEnabled(false);
     editToolBar->addWidget(stepButton);
 
@@ -175,7 +175,7 @@ void MainWindow::createToolbars()
             this, SLOT(step(int)));
 
     QToolButton *stopButton = new QToolButton;
-    stopButton->setIcon(QIcon(":stop.png"));
+    stopButton->setIcon(QIcon("://images/stop.png"));
     stopButton->setEnabled(false);
     editToolBar->addWidget(stopButton);
 
@@ -187,10 +187,10 @@ void MainWindow::createToolbars()
     QToolButton *pointerButton = new QToolButton;
     pointerButton->setCheckable(true);
     pointerButton->setChecked(true);
-    pointerButton->setIcon(QIcon(":pointer.png"));
+    pointerButton->setIcon(QIcon("://images/pointer.png"));
     QToolButton *linePointerButton = new QToolButton;
     linePointerButton->setCheckable(true);
-    linePointerButton->setIcon(QIcon(":linepointer.png"));
+    linePointerButton->setIcon(QIcon("://images/linepointer.png"));
 
     pointerTypeGroup = new QButtonGroup(this);
     pointerTypeGroup->addButton(pointerButton, int(BlockScene::MoveBlock));
@@ -218,22 +218,22 @@ QWidget *MainWindow::createCellWidget(const QString &text, BaseBlock::BlockType 
     switch (type)
     {
         case BaseBlock::Addition:
-            pixmap = new QPixmap(":add_block.jpg");
+            pixmap = new QPixmap("://images/add_block.jpg");
             break;
         case BaseBlock::InputBlock:
-            pixmap = new QPixmap(":input.jpg");
+            pixmap = new QPixmap("://images/input.jpg");
             break;
         case BaseBlock::Subtraction:
-            pixmap = new QPixmap(":sub_block.jpg");
+            pixmap = new QPixmap("://images/sub_block.jpg");
             break;
         case BaseBlock::Division:
-            pixmap = new QPixmap(":div_block.jpg");
+            pixmap = new QPixmap("://images/div_block.jpg");
             break;
         case BaseBlock::Multiplication:
-            pixmap = new QPixmap(":mul_block.jpg");
+            pixmap = new QPixmap("://images/mul_block.jpg");
             break;
         case BaseBlock::OutputBlock:
-            pixmap = new QPixmap(":output.jpg");
+            pixmap = new QPixmap("://images/output.jpg");
             break;
         default:
             ;
@@ -384,8 +384,6 @@ void MainWindow::compute(int)
     // clean blocks
     clean_blocks();
 
-    //
-
 }
 
 void MainWindow::clean_blocks()
@@ -393,6 +391,10 @@ void MainWindow::clean_blocks()
     for (BlockItem *block : operation_blocks)
     {
         block->propagated = false;
+        for (auto port : block->in_ports)
+        {
+            port->has_value = false;
+        }
     }
 }
 

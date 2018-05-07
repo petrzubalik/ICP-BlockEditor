@@ -14,7 +14,7 @@
 #include <QPen>
 
 OutputBlock::OutputBlock(QMenu *contextMenu, QGraphicsItem *parent)
-    :BaseBlock(BaseBlock::OutputBlock, ":output.jpg", contextMenu, parent)
+    :BaseBlock(BaseBlock::OutputBlock, "://images/output.jpg", contextMenu, parent)
 {
     in_port = new InputPort(this);
     in_port->setPos(-10,25);
