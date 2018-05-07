@@ -1,3 +1,11 @@
+/**
+  * @file outputblock.cpp
+  * @author Jan Koci (xkocij01), Petr Zubalik (xzubal04)
+  * @date May 2018
+  * @brief  The file implements methods from file outputblock.h
+  *
+  */
+
 #include "outputblock.h"
 #include "port.h"
 #include <QPainter>
@@ -40,11 +48,6 @@ void OutputBlock::paint(QPainter *painter, const QStyleOptionGraphicsItem *optio
         painter->drawText(40, -5, 100, 100, Qt::AlignCenter, text);
     }
 
-//    QPainterPath path;
-//    path.addRoundRect(boundingRect(), 0);
-//    QPen myPen(Qt::blue, 10);
-//    painter->setPen(myPen);
-//    painter->drawPath(path);
 }
 
 bool OutputBlock::all_ports_used()

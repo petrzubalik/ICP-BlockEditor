@@ -1,3 +1,11 @@
+/**
+  * @file operations.cpp
+  * @author Jan Koci (xkocij01), Petr Zubalik (xzubal04)
+  * @date May 2018
+  * @brief  The file implements methods from file operations.h
+  *
+  */
+
 #include "operations.h"
 #include "port.h"
 

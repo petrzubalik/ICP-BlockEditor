@@ -1,6 +1,14 @@
 #include <QGraphicsSceneMouseEvent>
 #include <QColor>
 #include <iostream>
+/**
+  * @file blockscene.cpp
+  * @author Jan Koci (xkocij01), Petr Zubalik (xzubal04)
+  * @date May 2018
+  * @brief  The file implements methods from file blockscene.h
+  *
+  */
+
 #include "blockscene.h"
 #include "operations.h"
 #include "inputblock.h"

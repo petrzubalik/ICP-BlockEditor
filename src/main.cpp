@@ -1,3 +1,11 @@
+/**
+  * @file main.cpp
+  * @author Jan Koci (xkocij01), Petr Zubalik (xzubal04)
+  * @date May 2018
+  * @brief  Main file of the project
+  *
+  */
+
 #include "mainwindow.h"
 #include <QApplication>
 

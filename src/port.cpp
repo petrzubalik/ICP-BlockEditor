@@ -1,3 +1,11 @@
+/**
+  * @file port.cpp
+  * @author Jan Koci (xkocij01), Petr Zubalik (xzubal04)
+  * @date May 2018
+  * @brief  The file implements methods from file port.h
+  *
+  */
+
 #include "port.h"
 #include "connection.h"
 
