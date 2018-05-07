@@ -92,7 +92,12 @@ void Subtraction::operation()
 
 Subtraction::~Subtraction()
 {
-    ;
+    delete out_port;
+
+    for (auto p: in_ports)
+    {
+        delete p;
+    }
 }
 
 
@@ -135,7 +140,12 @@ void Multiplication::operation()
 
 Multiplication::~Multiplication()
 {
-    ;
+    delete out_port;
+
+    for (auto p: in_ports)
+    {
+        delete p;
+    }
 }
 
 Division::Division(QMenu *contextMenu, QGraphicsItem *parent)
@@ -183,7 +193,12 @@ void Division::operation()
 
 Division::~Division()
 {
-    ;
+    delete out_port;
+
+    for (auto p: in_ports)
+    {
+        delete p;
+    }
 }
 
 

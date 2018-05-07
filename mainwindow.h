@@ -41,7 +41,9 @@ public:
 private slots:
     void buttonGroupClicked(int id);
     void deleteItem();
-    void saveScheme();
+    void saveScheme(QString file_name);
+    void save();
+    void save_as();
     void loadScheme();
     void pointerGroupClicked(int id);
     void compute(int);
@@ -62,11 +64,6 @@ private:
     void clean_blocks();
     bool allPortsUsed();
     bool all_input_values();
-//    friend QDataStream& InputBlock::operator<<(InputBlock* block);
-//    friend QDataStream& BlockItem::operator<<(BlockItem* block);
-//    friend QDataStream &operator<<(OutputBlock* block);
-//    QDataStream &operator<<(QPointF point);
-//    QDataStream &operator>>(QPointF &point);
 
 
 
@@ -75,9 +72,11 @@ private:
                               BlockItem::BlockType type);
 
     BlockScene *scene;
+    QString scheme_name;
     QGraphicsView *view;
 
     QAction *exitAction;
+    QAction *save_as_Action;
     QAction *saveAction;
     QAction *loadAction;
     QAction *deleteAction;

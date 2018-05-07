@@ -41,7 +41,9 @@ MainWindow::MainWindow()
     widget->setLayout(layout);
 
     setCentralWidget(widget);
-    setWindowTitle(tr("BlockEditor - new scheme"));
+
+    scheme_name = "new scheme";
+    setWindowTitle(scheme_name);
     setUnifiedTitleAndToolBarOnMac(true);
 }
 
@@ -112,12 +114,15 @@ void MainWindow::createActions()
     exitAction->setStatusTip(tr("Quit BlockEditor application"));
     connect(exitAction, SIGNAL(triggered()), this, SLOT(close()));
 
-    saveAction = new QAction(QIcon(":save.png"), tr("Save"), this);
+    saveAction = new QAction(tr("Save"), this);
     saveAction->setStatusTip(tr("Save current scheme"));
-    connect(saveAction, SIGNAL(triggered()), this, SLOT(saveScheme()));
+    connect(saveAction, SIGNAL(triggered()), this, SLOT(save()));
+
+    save_as_Action = new QAction(tr("Save as"), this);
+    save_as_Action->setStatusTip(tr("Save current scheme"));
+    connect(save_as_Action, SIGNAL(triggered()), this, SLOT(save_as()));
 
     loadAction = new QAction(tr("Open"), this);
-
     loadAction->setStatusTip(tr("Open an existing scheme"));
     connect(loadAction, SIGNAL(triggered()), this, SLOT(loadScheme()));
 }
@@ -126,6 +131,7 @@ void MainWindow::createMenus()
 {
     fileMenu = menuBar()->addMenu(tr("&File"));
     fileMenu->addAction(exitAction);
+    fileMenu->addAction(save_as_Action);
     fileMenu->addAction(saveAction);
     fileMenu->addAction(loadAction);
 
@@ -466,7 +472,20 @@ void MainWindow::stop(int)
 
 }
 
-void MainWindow::saveScheme()
+
+void MainWindow::save()
+{
+    QString file_name = scheme_name;
+
+    if (file_name == "new scheme")
+    {
+        save_as();
+    }
+    saveScheme(file_name);
+}
+
+
+void MainWindow::save_as()
 {
     // 1. get filename
     QString file_name = QFileDialog::getSaveFileName(this,
@@ -482,6 +501,13 @@ void MainWindow::saveScheme()
         QMessageBox::warning(this, "title", "Unable to open file");
         return;
     }
+    saveScheme(file_name);
+}
+
+
+void MainWindow::saveScheme(QString file_name)
+{
+
     QFile file(file_name);
     if (!file.open(QIODevice::WriteOnly))
     {
@@ -523,8 +549,13 @@ void MainWindow::saveScheme()
         out << block;
     }
 
-//    setWindowTitle(tr(file_name));
+    scheme_name = file_name;
+    setWindowTitle(scheme_name);
 }
+
+
+
+
 
 void MainWindow::loadScheme()
 {
@@ -551,10 +582,12 @@ void MainWindow::loadScheme()
     QDataStream in(&file);
     in.setVersion(QDataStream::Qt_5_5);
 
-    // parse the data
+    // Clear the scene
     input_blocks.clear();
     operation_blocks.clear();
     output_blocks.clear();
+    scene->clear();
+
 
     // 1) load input blocks
     quint32 magic;
@@ -704,11 +737,11 @@ void MainWindow::loadScheme()
             connection->setZValue(-1000);
             scene->addItem(connection);
             connection->updatePosition();
-            break;
+
         }
     }
 
+    scheme_name = file_name;
+    setWindowTitle(scheme_name);
 }
-
-
 
