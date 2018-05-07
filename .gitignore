@@ -1,4 +1,9 @@
 # apple stuff
 .DS_Store
 
+# buil
+buil-*
+
+build-blockeditor-Desktop_Qt_5_5_1_clang_64bit-Debug/
+
 BlockEditor2.pro.user.*

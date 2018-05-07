@@ -399,7 +399,6 @@ void MainWindow::clean_blocks()
 
 void MainWindow::debug(int)
 {
-    std::cout << "Debug button clicked !" << std::endl;
     stepGroup->button(14)->setEnabled(true);
     stopGroup->button(15)->setEnabled(true);
 
@@ -429,7 +428,6 @@ void MainWindow::debug(int)
 void MainWindow::step(int)
 {
     QMessageBox msgBox;
-    std::cout << "Step button clicked !" << std::endl;
 
     for (BlockItem *block : operation_blocks)
     {
@@ -457,7 +455,6 @@ void MainWindow::step(int)
 
 void MainWindow::stop(int)
 {
-    std::cout << "Stop button clicked !" << std::endl;
     stepGroup->button(14)->setEnabled(false);
     stopGroup->button(15)->setEnabled(false);
 
