@@ -8,7 +8,7 @@ QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = BlockEditor2
+TARGET = blockeditor
 TEMPLATE = app
 
 # The following define makes your compiler emit warnings if you use
@@ -30,7 +30,11 @@ SOURCES += \
     baseblock.cpp \
     connection.cpp \
     blockitem.cpp \
-    port.cpp
+    port.cpp \
+    operations.cpp \
+    textblock.cpp \
+    inputblock.cpp \
+    outputblock.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -38,7 +42,16 @@ HEADERS += \
     baseblock.h \
     connection.h \
     blockitem.h \
-    port.h
+    port.h \
+    operations.h \
+    textblock.h \
+    inputblock.h \
+    outputblock.h
 
 FORMS += \
         mainwindow.ui
+
+RESOURCES += \
+    images.qrc
+
+CONFIG += c++11

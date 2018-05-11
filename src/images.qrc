@@ -1,0 +1,19 @@
+<RCC>
+    <qresource prefix="/">
+        <file>images/play.png</file>
+        <file>images/save.png</file>
+        <file>images/stop.png</file>
+        <file>images/step.png</file>
+        <file>images/debug.png</file>
+        <file>images/output.jpg</file>
+        <file>images/add_block.jpg</file>
+        <file>images/input.jpg</file>
+        <file>images/port.png</file>
+        <file>images/delete.png</file>
+        <file>images/pointer.png</file>
+        <file>images/linepointer.png</file>
+        <file>images/sub_block.jpg</file>
+        <file>images/mul_block.jpg</file>
+        <file>images/div_block.jpg</file>
+    </qresource>
+</RCC>
