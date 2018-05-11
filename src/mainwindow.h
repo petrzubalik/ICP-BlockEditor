@@ -218,7 +218,7 @@ private:
     /**
      * @brief deletes one selected block from a scheme
      */
-    QAction *deleteAction;
+//    QAction *deleteAction;
 
 
     /**
