@@ -130,6 +130,7 @@ private slots:
     void save();
     void save_as();
     void loadScheme();
+    void newScheme();
 
 private:
 
@@ -210,6 +211,8 @@ private:
     QAction *save_as_Action;
 
     QAction *loadAction;
+    QAction *newAction;
+    QAction *deleteAction;
 
 
     /**
@@ -217,7 +220,6 @@ private:
      */
     QAction *deleteAction;
 
-//    QAction *aboutAction;
 
     /**
      * @brief file menu contains exit, save and load actions
@@ -228,7 +230,6 @@ private:
      * @brief item menu contains delete action
      */
     QMenu *itemMenu;
-//    QMenu *aboutMenu;
 
     /**
      * @brief editToolBar

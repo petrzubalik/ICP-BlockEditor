@@ -114,6 +114,10 @@ void MainWindow::createActions()
     exitAction->setStatusTip(tr("Quit BlockEditor application"));
     connect(exitAction, SIGNAL(triggered()), this, SLOT(close()));
 
+    newAction = new QAction(tr("New"), this);
+    newAction->setStatusTip(tr("Open new scheme"));
+    connect(newAction, SIGNAL(triggered()), this, SLOT(newScheme()));
+
     saveAction = new QAction(tr("Save"), this);
     saveAction->setStatusTip(tr("Save current scheme"));
     connect(saveAction, SIGNAL(triggered()), this, SLOT(save()));
@@ -130,6 +134,7 @@ void MainWindow::createActions()
 void MainWindow::createMenus()
 {
     fileMenu = menuBar()->addMenu(tr("&File"));
+    fileMenu->addAction(newAction);
     fileMenu->addAction(exitAction);
     fileMenu->addAction(save_as_Action);
     fileMenu->addAction(saveAction);
@@ -743,4 +748,21 @@ void MainWindow::loadScheme()
     scheme_name = file_name;
     setWindowTitle(scheme_name);
 }
+
+
+void MainWindow::newScheme()
+{
+    input_blocks.clear();
+    operation_blocks.clear();
+    output_blocks.clear();
+    scene->clear();
+    scene->update();
+
+    scheme_name = "new scheme";
+    setWindowTitle(scheme_name);
+}
+
+
+
+
 
